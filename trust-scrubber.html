@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trust Text Scrubber & QR Embed Tool</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 2em; }
+    textarea { width: 100%; height: 200px; margin-bottom: 1em; }
+    .btn { padding: 0.6em 1.2em; background: #333; color: #fff; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; }
+    #qr-container { margin-top: 2em; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>🔐 Trust Document Scrubber + QR Metadata Embedder</h1>
+  <p>Paste your document text below. This tool removes invisible characters and generates a QR code with optional trust metadata.</p>
+
+  <label><strong>Raw Input:</strong></label>
+  <textarea id="inputText"></textarea>
+
+  <label><strong>Custom Metadata (e.g., LEI, EIN, Trust ID):</strong></label>
+  <input type="text" id="metaText" style="width: 100%; margin-bottom: 1em;" placeholder="LEI: 984500FFAO6C10CD8768 | Trust: WILLIAM RAYEH WATLEY TRUST">
+
+  <button class="btn" onclick="cleanAndGenerate()">🧹 Scrub Text & Generate QR</button>
+
+  <h2>🧽 Cleaned Output</h2>
+  <div class="output" id="cleanedOutput"></div>
+
+  <div id="qr-container">
+    <h2>📎 QR Code (Encoded Metadata)</h2>
+    <canvas id="qrCode"></canvas>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script>
+    function removeHiddenChars(text) {
+      return text
+        .replace(/[\u200B-\u200F\uFEFF\u2060\u00A0\u2028\u2029]/g, '')
+        .replace(/[\x00-\x1F\x7F]+/g, '')
+        .replace(/[\r\n\t]+/g, ' ')
+        .trim();
+    }
+
+    function cleanAndGenerate() {
+      const raw = document.getElementById('inputText').value;
+      const metadata = document.getElementById('metaText').value;
+      const cleaned = removeHiddenChars(raw);
+
+      document.getElementById('cleanedOutput').textContent = cleaned;
+
+      const qr = new QRious({
+        element: document.getElementById('qrCode'),
+        value: metadata,
+        size: 200,
+        level: 'H'
+      });
+    }
+  </script>
+</body>
+</html>
