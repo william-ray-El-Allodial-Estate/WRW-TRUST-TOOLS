@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sovereign ID + Passport Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 2em; }
+    input, select, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: #fff; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🪪 Sovereign ID + Passport Generator</h1>
+  <form id="passportForm">
+    <label>Full Name</label>
+    <input type="text" id="fullname" placeholder="William-Ray: El">
+
+    <label>National / Tribal Affiliation</label>
+    <input type="text" id="affiliation" placeholder="Allodium Moroccan Praedium Ante Michigan (AMPAM) / Moorish American">
+
+    <label>Date of Birth</label>
+    <input type="text" id="dob" placeholder="August 9, 1976">
+
+    <label>Private ID Number</label>
+    <input type="text" id="idnum" placeholder="WRW-7583-2025-AM">
+
+    <label>Passport Purpose</label>
+    <textarea id="purpose" placeholder="Right to travel, treaty protection, foreign jurisdiction declaration, international commerce..."></textarea>
+
+    <button class="btn" type="submit">🪪 Generate Sovereign ID + Passport Record</button>
+  </form>
+
+  <div class="output" id="passportOutput"></div>
+
+  <script>
+    document.getElementById('passportForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('fullname').value;
+      const affiliation = document.getElementById('affiliation').value;
+      const dob = document.getElementById('dob').value;
+      const idnum = document.getElementById('idnum').value;
+      const purpose = document.getElementById('purpose').value;
+
+      const text = `
+--- SOVEREIGN IDENTIFICATION CARD / PASSPORT RECORD ---
+
+Name: ${name}
+National Affiliation: ${affiliation}
+Date of Birth: ${dob}
+Private ID / Passport #: ${idnum}
+
+This identification document is issued under private treaty, ecclesiastical, and commercial jurisdiction pursuant to the rights of self-determination, sovereign travel, and diplomatic estate protection.
+
+Purpose of Travel / Protection:
+${purpose}
+
+Issued by:
+Allodial Domain Surety & Underwriting Trust Company
+Authorized Postmaster / Consular Officer
+
+Record Timestamp: ___________________
+Seal / QR: __________________________
+      `;
+
+      document.getElementById('passportOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
