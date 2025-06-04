@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Allodial Transport Registration Tool</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f4f4f4; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #111; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🚗 Allodial Transport Registration Generator</h1>
+  <form id="plateForm">
+    <label>Trust / Estate Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Private Operator Name</label>
+    <input type="text" id="operator" placeholder="william-ray: El">
+
+    <label>VIN or Vehicle Description</label>
+    <input type="text" id="vehicle" placeholder="2014 Dodge Caravan / VIN #XXXXXXXXXXXXXXX">
+
+    <label>Jurisdiction</label>
+    <input type="text" id="jurisdiction" placeholder="AMPAM / Treaty of Peace and Friendship 1786">
+
+    <label>Purpose / Use Declaration</label>
+    <textarea id="use" placeholder="Private trust conveyance, not for hire, exempt from commercial regulation, diplomatic asset under ecclesiastical jurisdiction."></textarea>
+
+    <button class="btn" type="submit">📋 Generate Registration</button>
+  </form>
+
+  <div class="output" id="plateOutput"></div>
+
+  <script>
+    document.getElementById('plateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const trust = document.getElementById('trust').value;
+      const operator = document.getElementById('operator').value;
+      const vehicle = document.getElementById('vehicle').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+      const use = document.getElementById('use').value;
+
+      const text = `
+-----------------------------------------------
+     ALLODIAL DOMAIN – TRANSPORT REGISTRATION
+-----------------------------------------------
+
+Trust / Estate: ${trust}
+Private Operator: ${operator}
+Vehicle: ${vehicle}
+Jurisdiction: ${jurisdiction}
+
+Declaration of Use:
+${use}
+
+This record certifies the above-named vehicle and operator are lawfully engaged in travel under private trust and treaty jurisdiction. 
+This transport registration rebuts any assumption of state-regulated commercial driving.
+
+Authorized by:
+Allodial Domain Surety & Underwriting Trust Company
+Date Registered: __________________________
+Operator Signature: _______________________
+Seal / QR Code: ___________________________
+      `;
+
+      document.getElementById('plateOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>

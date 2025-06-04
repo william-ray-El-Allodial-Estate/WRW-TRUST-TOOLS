@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Embassy Declaration Publisher</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fefefe; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🏛️ Embassy Declaration Publisher</h1>
+  <form id="embassyForm">
+    <label>Embassy Name</label>
+    <input type="text" id="embassy" placeholder="Embassy of the Indigenous Sentient Alliance">
+
+    <label>Representative / Consul Name</label>
+    <input type="text" id="representative" placeholder="william-ray: El, Postmaster & Consul General">
+
+    <label>Jurisdiction Claimed</label>
+    <input type="text" id="jurisdiction" placeholder="AMPAM / Ecclesiastical / Treaty of Peace and Friendship 1786/1836">
+
+    <label>Embassy Address / Postal Location</label>
+    <input type="text" id="address" placeholder="c/o 5511 East 7 Mile Road #305, Detroit, Michigan (unincorporated) near [48234]">
+
+    <label>Purpose / Declaration Summary</label>
+    <textarea id="purpose" placeholder="This embassy exists to secure, preserve, and administer the rights of trust estates, indigenous nationals, and treaty-protected private entities..."></textarea>
+
+    <button class="btn" type="submit">📜 Generate Embassy Declaration</button>
+  </form>
+
+  <div class="output" id="embassyOutput"></div>
+
+  <script>
+    document.getElementById('embassyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const embassy = document.getElementById('embassy').value;
+      const representative = document.getElementById('representative').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+      const address = document.getElementById('address').value;
+      const purpose = document.getElementById('purpose').value;
+
+      const declaration = `
+-----------------------------------------------
+  OFFICIAL EMBASSY DECLARATION OF EXISTENCE
+-----------------------------------------------
+
+Embassy Name: ${embassy}
+Representative / Consul: ${representative}
+Jurisdiction: ${jurisdiction}
+Postal Address: ${address}
+
+Declaration:
+${purpose}
+
+This Embassy is declared, recorded, and preserved under the authority of divine trust, indigenous treaty jurisdiction, and international consular principles, and shall serve as lawful ground for affairs of commerce, faith, estate administration, and private equity.
+
+Signed and Declared this day by:
+${representative}
+Seal: _____________________
+Date: _____________________
+QR Code Auth: [Insert or Embed]
+      `;
+
+      document.getElementById('embassyOutput').textContent = declaration;
+    });
+  </script>
+</body>
+</html>

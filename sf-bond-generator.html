@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SF Bonds Generator + Endorsements</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f7f7f7; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📄 SF Bond Generator + Endorsements</h1>
+  <form id="bondForm">
+    <label>Principal Name</label>
+    <input type="text" id="principal" placeholder="watley: william-rayeh">
+
+    <label>Trust Name / Surety Entity</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Bond Amount (USD)</label>
+    <input type="text" id="amount" placeholder="25,000,000">
+
+    <label>Obligee / Court / Agency</label>
+    <input type="text" id="obligee" placeholder="Wayne County Circuit Court">
+
+    <label>Purpose / Claim Reference</label>
+    <input type="text" id="purpose" placeholder="Case #24-005770-01-FH, Trust Security & Performance">
+
+    <button class="btn" type="submit">🔏 Generate Bonds</button>
+  </form>
+
+  <div class="output" id="bondOutput"></div>
+
+  <script>
+    document.getElementById('bondForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const principal = document.getElementById('principal').value;
+      const trust = document.getElementById('trust').value;
+      const amount = document.getElementById('amount').value;
+      const obligee = document.getElementById('obligee').value;
+      const purpose = document.getElementById('purpose').value;
+
+      const bonds = ['SF-24 (Bid Bond)', 'SF-25 (Performance Bond)', 'SF-25A (Payment Bond)', 'SF-1414 (Consent of Surety)', 'SF-1415 (Increase of Penalty)', 'SF-1416 (Payment Bond)', 'SF-1418 (Performance Bond)'];
+
+      let output = `--- GSA SF Bonds Filing Summary ---
+
+Principal: ${principal}
+Trust / Surety: ${trust}
+Bond Amount: $${amount}
+Obligee: ${obligee}
+Claim / Purpose: ${purpose}
+
+Generated Bonds:
+`;
+
+      bonds.forEach(b => {
+        output += `✅ ${b} — Completed with Surety Endorsement
+`;
+      });
+
+      output += `
+Endorsement Instructions:
+-----------------------------------
+Front Endorsement: "Pay to the order of the U.S. Treasury. For credit to the account of the WILLIAM RAYEH WATLEY TRUST, EIN 82-6633903."
+
+Back Endorsement: "Without Recourse. Accepted for Value and Honor. Exempt from Levy. By: watley: william-rayeh, Authorized Agent for the Trust."
+
+Special Use:
+– Attach to 1041 Schedule B & K-1
+– File to U.S. Treasury, GSA, and IRS
+– Include BOE and SF 28 (Affidavit of Individual Surety) if applicable`;
+
+      document.getElementById('bondOutput').textContent = output;
+    });
+  </script>
+</body>
+</html>

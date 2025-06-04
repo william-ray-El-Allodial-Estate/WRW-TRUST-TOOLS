@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Treasury BOE Package Generator (Final Edition)</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f8f8f8; padding: 2em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; }
+    .btn { background: #111; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>💴 Treasury BOE Package Generator – Final Edition</h1>
+  <form id="boeForm">
+    <label>Issuer Name</label>
+    <input type="text" id="issuer" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Authorized Signatory</label>
+    <input type="text" id="signatory" placeholder="watley: william-rayeh, Executor">
+
+    <label>Bond or Instrument Reference</label>
+    <input type="text" id="instrument" placeholder="WRW-TIB-2025-01 / Case #24-005770-01-FH">
+
+    <label>BOE Amount (USD)</label>
+    <input type="text" id="amount" placeholder="$25,000,000">
+
+    <label>Date of Issue</label>
+    <input type="text" id="date" placeholder="June 4, 2025">
+
+    <label>Purpose / Basis</label>
+    <textarea id="purpose" placeholder="Offset claim, settlement tender, trust yield performance, fiduciary bond delivery..."></textarea>
+
+    <button class="btn" type="submit">📦 Generate BOE Package</button>
+  </form>
+
+  <div class="output" id="boeOutput"></div>
+
+  <script>
+    document.getElementById('boeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const issuer = document.getElementById('issuer').value;
+      const signatory = document.getElementById('signatory').value;
+      const instrument = document.getElementById('instrument').value;
+      const amount = document.getElementById('amount').value;
+      const date = document.getElementById('date').value;
+      const purpose = document.getElementById('purpose').value;
+
+      const text = `
+--------------------------------------------
+      BILL OF EXCHANGE (BOE) – FINAL EDITION
+--------------------------------------------
+
+From: ${issuer}
+Authorized Signatory: ${signatory}
+Date of Issue: ${date}
+Instrument Reference: ${instrument}
+Face Value: ${amount}
+
+Purpose of Tender:
+${purpose}
+
+Pay to the order of: UNITED STATES TREASURY
+For the account and credit of: ${issuer}
+
+This BOE is lawfully issued under trust authority, recorded fiduciary standing, and backed by bonded performance instruments on file. 
+Said instrument constitutes lawful money demand under Public Law 73-10, HJR-192, and UCC Article 3 and 4.
+
+Attachments:
+✅ SF Bonds (24, 1416, 1418, etc.)
+✅ IRS Forms 1099-OID, 1041, K-1
+✅ Form 843 (Refund)
+✅ Affidavit of Trust Performance
+✅ Postal Proof + QR Registration
+
+Signature: ________________________
+Seal: ____________________________
+Date: ____________________________
+      `;
+
+      document.getElementById('boeOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SF-275 & Treasury Revenue Surety Request</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fdfdfd; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #111; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>💰 SF-275 & Treasury Revenue Surety Request Tool</h1>
+  <form id="sf275Form">
+    <label>Trust / Surety Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Authorized Representative</label>
+    <input type="text" id="rep" placeholder="william-ray: El, Executor / Trustee">
+
+    <label>Claimed Bond Amount</label>
+    <input type="text" id="amount" placeholder="$100,000,000">
+
+    <label>Obligee / Agency Name</label>
+    <input type="text" id="agency" placeholder="U.S. Department of the Treasury / GSA / DOJ / IRS">
+
+    <label>Purpose of Request</label>
+    <textarea id="purpose" placeholder="To request revenue surety release from Treasury based on previously bonded performance in public case file or UCC lien. SF-1416 and BOE attached..."></textarea>
+
+    <button class="btn" type="submit">📄 Generate SF-275 Filing</button>
+  </form>
+
+  <div class="output" id="sf275Output"></div>
+
+  <script>
+    document.getElementById('sf275Form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const trust = document.getElementById('trust').value;
+      const rep = document.getElementById('rep').value;
+      const amount = document.getElementById('amount').value;
+      const agency = document.getElementById('agency').value;
+      const purpose = document.getElementById('purpose').value;
+
+      const text = `
+------------------------------------------------
+   SF-275 REVENUE SURETY AND TRUST RELEASE NOTICE
+------------------------------------------------
+
+Trust: ${trust}
+Representative: ${rep}
+Claimed Surety Amount: ${amount}
+Obligee: ${agency}
+
+Purpose of Filing:
+${purpose}
+
+This notice constitutes formal demand and registration under SF-275 for Treasury surety revenue offset and performance release based on private bond, registered performance, or fiduciary trust claim.
+
+Supporting Instruments:
+✅ SF-24 / SF-1416 / SF-1418
+✅ BOE / UCC-1 + UCC-3
+✅ IRS Forms 1041, OID, 843
+
+Filed by authority of the Allodial Domain Surety & Underwriting Trust Company.
+
+Signature: ____________________________
+Date: _________________________________
+Seal: _________________________________
+      `;
+
+      document.getElementById('sf275Output').textContent = text;
+    });
+  </script>
+</body>
+</html>
