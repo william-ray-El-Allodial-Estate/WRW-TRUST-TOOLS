@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Indigenous Rights Exemption Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f2f2f2; }
+    label, input, textarea, button { display: block; margin: 1em 0; width: 100%; max-width: 600px; }
+    button { padding: 0.5em; font-weight: bold; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Indigenous Rights Exemption Generator</h1>
+  <form id="exemptionForm">
+    <label>Name:
+      <input type="text" id="name" required>
+    </label>
+    <label>Indigenous Nation or Treaty:
+      <input type="text" id="nation" required>
+    </label>
+    <label>Type of Exemption (e.g., Vaccination, Monitoring Devices, etc.):
+      <input type="text" id="exemptionType" required>
+    </label>
+    <label>Additional Notes:
+      <textarea id="notes"></textarea>
+    </label>
+    <button type="submit">Generate Exemption Statement</button>
+  </form>
+
+  <h2>Generated Document</h2>
+  <div id="output"></div>
+
+  <script>
+    document.getElementById('exemptionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const nation = document.getElementById('nation').value;
+      const type = document.getElementById('exemptionType').value;
+      const notes = document.getElementById('notes').value;
+
+      const content = `
+Declaration of Indigenous Rights Exemption
+
+I, ${name}, a recognized member of the Indigenous Nation/Treaty known as "${nation}", hereby invoke my sovereign right to exemption from all ${type}-related mandates, orders, or practices that violate my spiritual, bodily, ancestral, or treaty-protected freedoms.
+
+This declaration is made under authority of international treaties, the Universal Declaration of Human Rights, the United Nations Declaration on the Rights of Indigenous Peoples, and the inherent sovereignty of the ${nation} Nation.
+
+Additional Notes:
+${notes || '(None provided)'}
+
+Signed,
+${name}
+Date: ${new Date().toLocaleDateString()}
+      `;
+
+      document.getElementById('output').textContent = content;
+    });
+  </script>
+</body>
+</html>
