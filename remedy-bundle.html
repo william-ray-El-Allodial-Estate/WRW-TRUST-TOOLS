@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remedy Bundle Generator – BOE + SF + IRS</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📦 Remedy Bundle Generator</h1>
+  <form id="remedyForm">
+    <label>Case or Claim Reference</label>
+    <input type="text" id="case" placeholder="Case #24-005770-01-FH or Claim Ref: WRW-2025-001">
+
+    <label>Agency / Entity</label>
+    <input type="text" id="agency" placeholder="Wayne County Circuit Court / DTE Energy / IRS / Treasury">
+
+    <label>Claimant / Trust</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Remedy Value (USD)</label>
+    <input type="number" id="value" placeholder="25000000">
+
+    <label>Description of Remedy / Cause</label>
+    <textarea id="desc" placeholder="Bill of Exchange tender, injury lien, utility discharge, counterclaim, etc."></textarea>
+
+    <button class="btn" type="submit">📄 Generate Remedy Bundle</button>
+  </form>
+
+  <div class="output" id="bundleOutput"></div>
+
+  <script>
+    document.getElementById('remedyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const caseRef = document.getElementById('case').value;
+      const agency = document.getElementById('agency').value;
+      const trust = document.getElementById('trust').value;
+      const value = parseFloat(document.getElementById('value').value).toLocaleString();
+      const desc = document.getElementById('desc').value;
+
+      const output = `
+--- REMEDY BUNDLE TEMPLATE ---
+
+Case/Reference: ${caseRef}
+Agency/Entity: ${agency}
+Claimant: ${trust}
+Remedy Value: $${value}
+
+Description:
+${desc}
+
+📄 Attachments to Prepare:
+- ✅ Bill of Exchange: WRW-BOE-${new Date().getFullYear()}
+- ✅ SF-1414 Bid Bond / SF-1416 Performance / SF-1418 Payment
+- ✅ IRS Form 2848 (Power of Attorney)
+- ✅ IRS Form 56 (Fiduciary Notice)
+- ✅ IRS Form 1099-OID / A / C
+- ✅ Form 843 (Refund / Discharge Request)
+- ✅ Affidavit of Truth & Notice of Default
+
+NOTE: Serve via Certified Mail with green card or via court/agency dropbox. Copy should be recorded with your Trust Ledger + QR metadata for proof of claim.
+      `;
+
+      document.getElementById('bundleOutput').textContent = output;
+    });
+  </script>
+</body>
+</html>
