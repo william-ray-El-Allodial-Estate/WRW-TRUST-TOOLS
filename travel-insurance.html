@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trust-Based Travel Insurance Certificate</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f9f9f9; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #333; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🛡 Travel Insurance Certificate Generator</h1>
+  <form id="travelForm">
+    <label>Traveler Name</label>
+    <input type="text" id="name" placeholder="William-Ray: El">
+
+    <label>Trust Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Passport or Private ID Number</label>
+    <input type="text" id="idnum" placeholder="WRW-7583-2025-AM">
+
+    <label>Purpose or Destination</label>
+    <textarea id="purpose" placeholder="Ecclesiastical travel, consular visitations, trust business across territories..."></textarea>
+
+    <label>Travel Dates</label>
+    <input type="text" id="dates" placeholder="June 15, 2025 – July 5, 2025">
+
+    <button class="btn" type="submit">🛡 Generate Certificate</button>
+  </form>
+
+  <div class="output" id="travelOutput"></div>
+
+  <script>
+    document.getElementById('travelForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const trust = document.getElementById('trust').value;
+      const idnum = document.getElementById('idnum').value;
+      const purpose = document.getElementById('purpose').value;
+      const dates = document.getElementById('dates').value;
+
+      const text = `
+--- TRUST-BASED TRAVEL INSURANCE CERTIFICATE ---
+
+Traveler: ${name}
+Trust: ${trust}
+Passport/ID: ${idnum}
+Coverage Dates: ${dates}
+
+Purpose of Travel:
+${purpose}
+
+This certificate confirms that the above traveler is insured and indemnified under trust authority through the Allodial Domain Surety & Underwriting Trust Company.
+
+Coverage includes protection for trust assets, physical estate, private consular rights, and international treaty enforcement, while under recognized ecclesiastical and treaty jurisdictions (AMPAM).
+
+Filed under:
+Allodial Domain Surety & Underwriting Trust Company
+Record Date: ___________________
+Authorized Fiduciary / Officer: ___________________
+Seal / QR Verification: ___________________
+      `;
+
+      document.getElementById('travelOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
