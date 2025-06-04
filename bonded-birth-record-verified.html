@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bonded Birth Record – AMPAM Verified</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #fefefe; color: #000; position: relative; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #000; color: white; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; position: relative; }
+    .watermark {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      width: 100px;
+      opacity: 0.15;
+    }
+    .qrcode {
+      width: 100px;
+      margin-top: 20px;
+    }
+    .footer {
+      margin-top: 1em;
+      font-style: italic;
+      font-size: 0.9em;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍼 Bonded Birth Record Generator – Verified AMPAM Record</h1>
+  <form id="birthForm">
+    <label for="childName">Newborn Name</label>
+    <input type="text" id="childName" placeholder="Full Name of the Newborn">
+
+    <label for="dob">Date of Birth</label>
+    <input type="text" id="dob" placeholder="MM/DD/YYYY">
+
+    <label for="place">Place of Birth</label>
+    <input type="text" id="place" placeholder="City, Region, Nation">
+
+    <label for="mother">Mother’s Full Name</label>
+    <input type="text" id="mother" placeholder="Mother's Full Name">
+
+    <label for="father">Father’s Full Name</label>
+    <input type="text" id="father" placeholder="Father's Full Name">
+
+    <label for="notes">Optional Notes</label>
+    <textarea id="notes" placeholder="Add bonded clauses, status, or declarations..."></textarea>
+
+    <button type="submit">Generate Record</button>
+  </form>
+
+  <div class="output" id="outputBox">
+    <img class="watermark" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Seal_of_Morocco.svg/240px-Seal_of_Morocco.svg.png" alt="AMPAM Emblem">
+    <pre id="birthOutput"></pre>
+    <img class="qrcode" src="https://api.qrserver.com/v1/create-qr-code/?data=AMPAM-Birth-Record&size=100x100" alt="QR Code">
+    <div class="footer">🔗 Timestamp Hash (for IPFS): <span id="hashBox">[placeholder]</span></div>
+  </div>
+
+  <script>
+    document.getElementById("birthForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const child = document.getElementById("childName").value;
+      const dob = document.getElementById("dob").value;
+      const place = document.getElementById("place").value;
+      const mother = document.getElementById("mother").value;
+      const father = document.getElementById("father").value;
+      const notes = document.getElementById("notes").value;
+
+      const record = `
+==============================
+AMPAM BONDED BIRTH RECORD
+==============================
+
+Newborn: ${child}
+DOB: ${dob}
+Place: ${place}
+
+Mother: ${mother}
+Father: ${father}
+
+Witnesses:
+- Seya Raha
+- Dullah
+
+NOTES:
+${notes}
+
+This sovereign birth record is registered under treaty authority within the Allodium Moroccan Praedium Ante Michigan (AMPAM) jurisdiction.
+
+⚖️ Protected by international private law and verified via AMPAM seal and cryptographic hash.
+      `;
+
+      document.getElementById("birthOutput").textContent = record;
+
+      const raw = child + dob + place + mother + father + notes;
+      const hash = btoa(raw).substring(0, 32);
+      document.getElementById("hashBox").textContent = hash + "...";
+    });
+  </script>
+</body>
+</html>
