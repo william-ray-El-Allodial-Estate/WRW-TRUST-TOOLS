@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IRS Form 843 Refund Demand Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fdfdfd; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #444; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🧾 IRS Form 843 Refund Demand Generator</h1>
+  <form id="form843">
+    <label>Trust or Estate Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Taxpayer SSN or EIN</label>
+    <input type="text" id="ssn" placeholder="82-6633903">
+
+    <label>Tax Period or Year</label>
+    <input type="text" id="taxYear" placeholder="2024">
+
+    <label>Refund Amount Requested</label>
+    <input type="text" id="amount" placeholder="$25,000,000">
+
+    <label>Type of Refund or Abatement</label>
+    <input type="text" id="type" placeholder="Refund of OID credit withheld or improper levy on trust account">
+
+    <label>Explanation of Claim</label>
+    <textarea id="explanation" placeholder="Overpayment occurred due to fiduciary breach or failure to release credits owed to the trust estate under IRS filings and submitted BOE..."></textarea>
+
+    <button class="btn" type="submit">📑 Generate IRS 843 Claim</button>
+  </form>
+
+  <div class="output" id="form843Output"></div>
+
+  <script>
+    document.getElementById('form843').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const trust = document.getElementById('trust').value;
+      const ssn = document.getElementById('ssn').value;
+      const taxYear = document.getElementById('taxYear').value;
+      const amount = document.getElementById('amount').value;
+      const type = document.getElementById('type').value;
+      const explanation = document.getElementById('explanation').value;
+
+      const text = `
+--- IRS FORM 843 REFUND DEMAND TEMPLATE ---
+
+Filed by: ${trust}
+SSN / EIN: ${ssn}
+Tax Period: ${taxYear}
+
+Amount Requested: ${amount}
+
+Type of Refund or Abatement:
+${type}
+
+Explanation:
+${explanation}
+
+Attached Documents:
+✅ BOE or Bond Instrument
+✅ IRS 1099-OID or 1041
+✅ Fiduciary Affidavit
+✅ IRS Form 56 + 2848 (if trust filed as fiduciary)
+
+Under penalties of perjury, I declare this claim is true, correct, and complete.
+
+Signature: ________________________
+Date: ________________________
+
+Mail to: Internal Revenue Service – Stop 8420G, Cincinnati, OH 45999-0022
+      `;
+
+      document.getElementById('form843Output').textContent = text;
+    });
+  </script>
+</body>
+</html>

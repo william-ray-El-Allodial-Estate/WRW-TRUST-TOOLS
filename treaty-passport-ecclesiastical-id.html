@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Treaty Passport + Ecclesiastical ID Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f4f4f4; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #333; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🛡️ Treaty Passport & Ecclesiastical ID Generator</h1>
+  <form id="idForm">
+    <label>Full Living Name</label>
+    <input type="text" id="name" placeholder="william-ray: El">
+
+    <label>Trust or Estate Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Date of Birth / Estate Origination</label>
+    <input type="text" id="dob" placeholder="08/09/1976">
+
+    <label>Jurisdiction or Nation</label>
+    <input type="text" id="nation" placeholder="Allodium Moroccan Praedium Ante Michigan (AMPAM)">
+
+    <label>Document Issuer</label>
+    <input type="text" id="issuer" placeholder="ALLLODIAL DOMAIN SURETY & UNDERWRITING TRUST COMPANY">
+
+    <button class="btn" type="submit">📘 Generate Ecclesiastical ID</button>
+  </form>
+
+  <div class="output" id="idOutput"></div>
+
+  <script>
+    document.getElementById('idForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const trust = document.getElementById('trust').value;
+      const dob = document.getElementById('dob').value;
+      const nation = document.getElementById('nation').value;
+      const issuer = document.getElementById('issuer').value;
+
+      const idText = `
+-----------------------------------------
+  Ecclesiastical Passport & ID Certificate
+-----------------------------------------
+
+Name: ${name}
+Trust Affiliation: ${trust}
+Estate / Trust Origination: ${dob}
+Private Jurisdiction: ${nation}
+Issuing Authority: ${issuer}
+
+This identification document affirms the bearer’s standing as a living soul under divine appointment, protected by treaty, ecclesiastical law, and international human rights protocols.
+
+The bearer is not a subject of any foreign corporate jurisdiction unless by explicit consent.
+
+Treaty Reference:
+✓ Treaty of Peace and Friendship 1786/1836
+✓ Universal Declaration of Human Rights
+✓ Vienna Convention on Consular Relations
+✓ International Covenant on Civil and Political Rights
+
+Seal: _____________________________
+Signature: ________________________
+Date Issued: ______________________
+
+QR CODE: [Insert Authentication]
+      `;
+
+      document.getElementById('idOutput').textContent = idText;
+    });
+  </script>
+</body>
+</html>

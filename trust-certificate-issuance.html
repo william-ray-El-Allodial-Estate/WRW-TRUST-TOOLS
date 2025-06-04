@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trust Certificate Issuance Tool</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fafafa; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🎓 Trust Certificate Issuance Tool</h1>
+  <form id="certForm">
+    <label>Trust Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Certificate Holder Name</label>
+    <input type="text" id="holder" placeholder="William Daniel Watley">
+
+    <label>Number of Shares / Units</label>
+    <input type="text" id="units" placeholder="100">
+
+    <label>Certificate Number</label>
+    <input type="text" id="certNum" placeholder="WRW-TR-CERT-001">
+
+    <label>Date of Issue</label>
+    <input type="text" id="issueDate" placeholder="06/03/2025">
+
+    <label>Trustee / Authorized Issuer</label>
+    <input type="text" id="issuer" placeholder="William-Ray: El, Trustee">
+
+    <button class="btn" type="submit">📄 Generate Trust Certificate</button>
+  </form>
+
+  <div class="output" id="certOutput"></div>
+
+  <script>
+    document.getElementById('certForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const trust = document.getElementById('trust').value;
+      const holder = document.getElementById('holder').value;
+      const units = document.getElementById('units').value;
+      const certNum = document.getElementById('certNum').value;
+      const issueDate = document.getElementById('issueDate').value;
+      const issuer = document.getElementById('issuer').value;
+
+      const text = `
+-----------------------------
+  CERTIFICATE OF BENEFICIAL INTEREST
+-----------------------------
+
+Trust Name: ${trust}
+Certificate No.: ${certNum}
+
+This certifies that:
+${holder}
+
+is the holder of:
+${units} unit(s) of beneficial interest in the above-named trust.
+
+Issued this day:
+${issueDate}
+
+By authority of the Trustee:
+${issuer}
+
+Signature: _________________________
+Date: _________________________
+
+Note: This certificate does not represent a security under public law, but a private, beneficial interest under trust authority.
+      `;
+
+      document.getElementById('certOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>

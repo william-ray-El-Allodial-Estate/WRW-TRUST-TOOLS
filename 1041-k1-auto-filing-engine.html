@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1041 + K-1 Auto Filing Engine</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fefefe; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📊 IRS 1041 + K-1 Auto Filing Engine</h1>
+  <form id="filingForm">
+    <label>Trust Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Trust EIN</label>
+    <input type="text" id="ein" placeholder="82-6633903">
+
+    <label>Filing Year</label>
+    <input type="text" id="year" placeholder="2024">
+
+    <label>Total Income to Report</label>
+    <input type="text" id="income" placeholder="$247,399,990">
+
+    <label>Beneficiaries (comma-separated names)</label>
+    <input type="text" id="beneficiaries" placeholder="William Daniel Watley, Darius Rayel Watley, Court, DTE Energy">
+
+    <label>Description of Source</label>
+    <textarea id="source" placeholder="Bonded performance submitted into court case #24-005770-01-FH with BOE, SF-24, SF-1416, SF-1418, Counterclaim."></textarea>
+
+    <button class="btn" type="submit">🧾 Generate Filing Summary</button>
+  </form>
+
+  <div class="output" id="filingOutput"></div>
+
+  <script>
+    document.getElementById('filingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const trust = document.getElementById('trust').value;
+      const ein = document.getElementById('ein').value;
+      const year = document.getElementById('year').value;
+      const income = document.getElementById('income').value;
+      const beneficiaries = document.getElementById('beneficiaries').value.split(',');
+      const source = document.getElementById('source').value;
+
+      let k1text = "";
+      const portion = (parseFloat(income.replace(/[^0-9.-]+/g,"")) / beneficiaries.length).toFixed(2);
+
+      beneficiaries.forEach((b, i) => {
+        k1text += `
+--- Schedule K-1 for: ${b.trim()} ---
+Share of Trust Income: $${portion}
+Description: ${source}
+
+`;
+      });
+
+      const text = `
+IRS FORM 1041 – U.S. Income Tax Return for Estates and Trusts
+
+Trust: ${trust}
+EIN: ${ein}
+Year: ${year}
+Total Reported Income: ${income}
+
+Income Source:
+${source}
+
+Attached Schedules:
+${k1text}
+
+NOTE: This engine generates basic outputs for pre-filing planning. Form 1041 and K-1 PDFs must still be submitted with barcode via IRIS or paper return. Use this as your master ledger.
+      `;
+
+      document.getElementById('filingOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rebuttal of Presumed Taxpayer Status</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f7f7f7; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📬 Rebuttal of Presumed Taxpayer Status Letter</h1>
+  <form id="rebuttalForm">
+    <label>Full Name (as Executor)</label>
+    <input type="text" id="executor" placeholder="watley: william-rayeh">
+
+    <label>SSN or Trust EIN</label>
+    <input type="text" id="ein" placeholder="82-6633903">
+
+    <label>Private Mailing Address</label>
+    <input type="text" id="address" placeholder="c/o East 7 Mile Road 5511 #305, Detroit, Michigan (unincorporated) near [48234]">
+
+    <label>Date</label>
+    <input type="text" id="date" placeholder="June 3, 2025">
+
+    <label>To Agency/IRS Office</label>
+    <input type="text" id="agency" placeholder="Internal Revenue Service, Cincinnati, Ohio">
+
+    <button class="btn" type="submit">📜 Generate Letter</button>
+  </form>
+
+  <div class="output" id="rebuttalOutput"></div>
+
+  <script>
+    document.getElementById('rebuttalForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const executor = document.getElementById('executor').value;
+      const ein = document.getElementById('ein').value;
+      const address = document.getElementById('address').value;
+      const date = document.getElementById('date').value;
+      const agency = document.getElementById('agency').value;
+
+      const text = `
+${date}
+
+To: ${agency}
+
+From: ${executor}
+${address}
+
+RE: Rebuttal of Presumed Taxpayer Status and Estate Classification
+SSN/EIN: ${ein}
+
+Dear Administrator,
+
+This correspondence constitutes formal rebuttal of any presumption that the undersigned, a living private American National, is acting in the capacity of a “taxpayer” as defined by Title 26 U.S. Code, or that the associated trust estate is subject to involuntary servitude under public tax jurisdiction.
+
+The trust estate identified by the above EIN or SSN is a private, foreign, ecclesiastical entity under trust, and not a franchise or beneficiary of any federal instrumentality unless so expressly consented. Any filings or presumptions suggesting otherwise are hereby rebutted.
+
+All further interaction shall be governed by Private Treaty, Trust Law, and Equity. Kindly correct your records accordingly and cease any administrative assumption contrary to the living status of the executor and fiduciary interest holder.
+
+Respectfully,
+
+_________________________________
+${executor}, Executor / Fiduciary
+${address}
+
+CC: Office of Disclosure, FOIA, Office of Inspector General, Treasury Inspector General for Tax Administration
+      `;
+
+      document.getElementById('rebuttalOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>

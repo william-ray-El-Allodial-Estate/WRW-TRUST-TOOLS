@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>98-Series EIN Application Wizard (SS-4)</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f9f9f9; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #333; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📑 98-Series EIN Application Wizard (SS-4 Auto-Filler)</h1>
+  <form id="einForm">
+    <label>Trust Name / Entity</label>
+    <input type="text" id="entity" placeholder="Pro-Motion Publishing Trust">
+
+    <label>Executor / Trustee Name</label>
+    <input type="text" id="name" placeholder="william-ray: El">
+
+    <label>Mailing Address</label>
+    <input type="text" id="address" placeholder="c/o East 7 Mile Road 5511 #305, Detroit, Michigan (unincorporated) near [48234]">
+
+    <label>Foreign Country / Jurisdiction</label>
+    <input type="text" id="country" placeholder="Morocco Major or AMPAM">
+
+    <label>Reason for Applying</label>
+    <input type="text" id="reason" placeholder="Started a new trust entity for banking and administrative filings.">
+
+    <button class="btn" type="submit">🔐 Generate SS-4 Summary</button>
+  </form>
+
+  <div class="output" id="einOutput"></div>
+
+  <script>
+    document.getElementById('einForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const entity = document.getElementById('entity').value;
+      const name = document.getElementById('name').value;
+      const address = document.getElementById('address').value;
+      const country = document.getElementById('country').value;
+      const reason = document.getElementById('reason').value;
+
+      const text = `
+--- IRS SS-4 Application Summary for 98-Series EIN ---
+
+Line 1: Legal Name of Entity: ${entity}
+Line 3: Executor/Trustee: ${name}
+Line 4a/4b: Mailing Address: ${address}
+Line 7a: Responsible Party: ${name}
+Line 9a: Type of Entity: Trust (Foreign – 98-Series)
+Line 10: Reason for Applying: ${reason}
+Line 11: Date Entity Started: [Insert Date]
+Line 16: Principal Activity: Trust Administration / Private Publishing / Commerce
+Line 18: Have employees? No
+Line 19: First wage date? N/A
+Line 8a: Is this application for a foreign person/entity? ✅ Yes
+Line 8b: Country: ${country}
+Line 17: Special Filing Notes: 98-Series EIN requested. Private trust. Treaty-based filing. No SSN required.
+
+💡 To complete:
+– Call IRS International EIN Unit: 267-941-1099
+– Submit via fax or through authorized international agent.
+– Do not use IRS online EIN tool for 98-series; must be manual.
+
+For records and filing into trust archives.
+
+-----------------------------------
+Signature: ________________________
+Date: _____________________________
+      `;
+
+      document.getElementById('einOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
