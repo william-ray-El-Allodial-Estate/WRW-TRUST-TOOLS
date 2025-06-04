@@ -1,0 +1,20 @@
+
+<!-- 🔍 Search Bar -->
+<input type="text" id="toolSearch" placeholder="Search tools..." onkeyup="filterTools()" style="width: 100%; padding: 10px; margin: 20px 0; font-size: 1em; border: 1px solid #ccc; border-radius: 4px;">
+
+<script>
+function filterTools() {
+  const input = document.getElementById("toolSearch");
+  const filter = input.value.toLowerCase();
+  const tools = document.querySelectorAll(".tool");
+
+  tools.forEach((btn) => {
+    const text = btn.textContent.toLowerCase();
+    if (text.includes(filter)) {
+      btn.style.display = "inline-block";
+    } else {
+      btn.style.display = "none";
+    }
+  });
+}
+</script>
