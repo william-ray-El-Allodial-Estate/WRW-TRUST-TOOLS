@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FOIA Request Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f0f0f0; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #444; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📂 FOIA Request Generator</h1>
+  <form id="foiaForm">
+    <label>Requestor Name</label>
+    <input type="text" id="name" placeholder="William-Rayeh: Watley">
+
+    <label>Agency Name</label>
+    <input type="text" id="agency" placeholder="Social Security Administration / IRS / Department of Treasury">
+
+    <label>Records Requested</label>
+    <textarea id="records" placeholder="Full FOIA copy of all records, authorizations, notes, and actions held under SSN or related trust estate..."></textarea>
+
+    <label>Mailing Address or Response Contact</label>
+    <input type="text" id="address" placeholder="c/o Private American National, 5511 East 7 Mile Rd #305, Detroit, Michigan (unincorporated), near [48234]">
+
+    <button class="btn" type="submit">📩 Generate FOIA Request</button>
+  </form>
+
+  <div class="output" id="foiaOutput"></div>
+
+  <script>
+    document.getElementById('foiaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const agency = document.getElementById('agency').value;
+      const records = document.getElementById('records').value;
+      const address = document.getElementById('address').value;
+
+      const text = `
+--- FREEDOM OF INFORMATION ACT (FOIA) REQUEST ---
+
+To: ${agency}
+
+From: ${name}
+
+I am submitting this formal FOIA request under 5 U.S.C. § 552 for complete access to all records, actions, decisions, and internal notes concerning:
+
+${records}
+
+This includes any records under the name, estate, or trust:
+${name}, any CUSIP-registered instrument, SSN, or EIN related to fiduciary actions or administrative liens.
+
+Please respond in writing within 20 days of receipt as required by law.
+
+Response Address:
+${address}
+
+Respectfully,
+${name}
+Date: _____________________
+      `;
+
+      document.getElementById('foiaOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
