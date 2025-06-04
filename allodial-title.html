@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Allodial Title & Fee Simple Rebuttal Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f4f4f4; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🏛 Allodial Title + Fee Simple Rebuttal Generator</h1>
+  <form id="titleForm">
+    <label>Property Description / Parcel ID</label>
+    <input type="text" id="parcel" placeholder="13019832 / 4079 Fullerton, Detroit Michigan">
+
+    <label>Trust or Estate Owner</label>
+    <input type="text" id="owner" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Prior Title or Patent Reference</label>
+    <input type="text" id="patent" placeholder="Land Patent # 192398 / U.S. Survey Patent Ref.">
+
+    <label>Jurisdiction</label>
+    <input type="text" id="jurisdiction" placeholder="AMPAM / Allodial Moroccan Praedium Ante Michigan">
+
+    <label>Notes / Grounds for Rebuttal</label>
+    <textarea id="notes" placeholder="Property held in allodium by rightful heir; fee simple rejected as inferior claim; no commercial debt valid against estate."></textarea>
+
+    <button class="btn" type="submit">📜 Generate Allodial Title & Rebuttal Record</button>
+  </form>
+
+  <div class="output" id="titleOutput"></div>
+
+  <script>
+    document.getElementById('titleForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const parcel = document.getElementById('parcel').value;
+      const owner = document.getElementById('owner').value;
+      const patent = document.getElementById('patent').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+      const notes = document.getElementById('notes').value;
+
+      const text = `
+--- ALLODIAL TITLE CERTIFICATE ---
+
+Parcel / Description: ${parcel}
+Estate Holder: ${owner}
+Original Title / Patent: ${patent}
+Jurisdiction: ${jurisdiction}
+
+This certificate confirms that the above property is lawfully held in allodium and is exempt from fee simple presumptions or municipal foreclosure actions.
+
+FEE SIMPLE REBUTTAL:
+The estate hereby rebuts any claim of constructive trust, escheatment, or equitable fee interest by the State, County, or Municipal entities.
+
+${notes}
+
+Filed under authority of:
+Allodial Domain Surety & Underwriting Trust Company
+Fiduciary / Executor: __________________________
+Date: ________________________
+Seal / QR Code: ___________________
+      `;
+
+      document.getElementById('titleOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
