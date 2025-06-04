@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AMPAM Search Index / Trust Doc Verifier</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #eef2f5; padding: 2em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; }
+    .btn { background: #2b2b2b; color: #fff; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🔎 AMPAM Trust Record Verifier</h1>
+  <form id="searchForm">
+    <label>Enter Document ID, QR Data, or LEI</label>
+    <input type="text" id="searchKey" placeholder="WRW-BOE-2025-001 or 984500FFAO6C10CD8768">
+
+    <label>Additional Info (optional)</label>
+    <textarea id="extraInfo" placeholder="Trust name, record title, jurisdiction, or keywords..."></textarea>
+
+    <button class="btn" type="submit">🔍 Generate Verification Index Entry</button>
+  </form>
+
+  <div class="output" id="searchOutput"></div>
+
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const key = document.getElementById('searchKey').value;
+      const extra = document.getElementById('extraInfo').value;
+
+      const output = `
+--- AMPAM RECORD INDEX ENTRY ---
+
+Record Key: ${key}
+Related Info: ${extra}
+
+Verification Steps:
+✅ Search public GitHub record under:
+https://github.com/william-ray-el-allodial-estate/WRW-Trust-Public
+
+✅ Search IPFS Archive:
+https://ipfs.io/ipfs/[CID if known]
+
+✅ If LEI is used:
+Verify at: https://www.gleif.org/en/lei/search
+
+Verified by:
+AMPAM Private Archive / DROIT–DROIT Registry
+Filed by Executor / Postal Marshal
+
+Record Timestamp: __________________________
+      `;
+
+      document.getElementById('searchOutput').textContent = output;
+    });
+  </script>
+</body>
+</html>
