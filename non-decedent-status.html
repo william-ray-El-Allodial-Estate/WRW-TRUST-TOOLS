@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Non-Decedent & Jurisdictional Status Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #333; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🧾 Non-Decedent & Jurisdictional Status Generator</h1>
+  <form id="statusForm">
+    <label>Full Name (Upper/Lower as on BC)</label>
+    <input type="text" id="fullname" placeholder="William Rayeh Watley">
+
+    <label>SSN (Last 4 or Full for record match)</label>
+    <input type="text" id="ssn" placeholder="1234 or 123-45-6789">
+
+    <label>Trust / Estate Name</label>
+    <input type="text" id="estate" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Jurisdiction Claimed</label>
+    <input type="text" id="jurisdiction" placeholder="Allodium Moroccan Praedium Ante Michigan / Treaty of Peace and Friendship">
+
+    <label>Notice Summary or Claim Statement</label>
+    <textarea id="statement" placeholder="Affidavit of Life, Living Principal Executor, private estate jurisdiction..."></textarea>
+
+    <button class="btn" type="submit">📜 Generate Status Notice</button>
+  </form>
+
+  <div class="output" id="statusOutput"></div>
+
+  <script>
+    document.getElementById('statusForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('fullname').value;
+      const ssn = document.getElementById('ssn').value;
+      const estate = document.getElementById('estate').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+      const statement = document.getElementById('statement').value;
+
+      const text = `
+--- NOTICE OF NON-DECEDENT ESTATE STATUS ---
+
+To Whom It May Concern:
+
+This Notice serves to confirm that I, ${name}, SSN ending in ${ssn}, am the living, sentient man and lawful Executor of the private estate known as ${estate}. I am not a decedent, nor am I presumed lost, abandoned, or deceased under any commercial code, federal registry, or probate assumption.
+
+This estate is held in exclusive jurisdiction under:
+${jurisdiction}
+
+STATEMENT OF CLAIM:
+${statement}
+
+This Notice is issued to correct all public records, challenge any unauthorized fiduciary assumption, revoke presumptions of abandonment, and establish proper estate control for purposes of remedy, asset recovery, and trust administration.
+
+Signed: ____________________________
+Date: _____________________________
+Seal: _____________________________
+      `;
+
+      document.getElementById('statusOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
