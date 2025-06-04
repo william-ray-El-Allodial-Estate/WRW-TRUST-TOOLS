@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Federal Lawsuit Complaint Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f9f9f9; padding: 2em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>⚖️ Federal Lawsuit Complaint Generator</h1>
+  <form id="lawsuitForm">
+    <label>Plaintiff Name</label>
+    <input type="text" id="plaintiff" placeholder="William-Rayeh: Watley">
+
+    <label>Defendant Name</label>
+    <input type="text" id="defendant" placeholder="Wells Fargo Bank / State of Michigan / Wayne County">
+
+    <label>Jurisdiction & Court</label>
+    <input type="text" id="court" placeholder="U.S. District Court, Eastern District of Michigan">
+
+    <label>Cause(s) of Action</label>
+    <textarea id="cause" placeholder="Violation of trust rights, breach of fiduciary duty, administrative fraud, due process violations..."></textarea>
+
+    <label>Factual Background</label>
+    <textarea id="facts" placeholder="Defendant closed account without notice, refused trust documentation, retaliated against demand for lawful authority..."></textarea>
+
+    <label>Relief Requested</label>
+    <textarea id="relief" placeholder="Injunctive relief, reinstatement of trust access, $25 million damages, IRS investigation, and equitable remedy..."></textarea>
+
+    <button class="btn" type="submit">📑 Generate Complaint</button>
+  </form>
+
+  <div class="output" id="lawsuitOutput"></div>
+
+  <script>
+    document.getElementById('lawsuitForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const plaintiff = document.getElementById('plaintiff').value;
+      const defendant = document.getElementById('defendant').value;
+      const court = document.getElementById('court').value;
+      const cause = document.getElementById('cause').value;
+      const facts = document.getElementById('facts').value;
+      const relief = document.getElementById('relief').value;
+
+      const text = `
+--- FEDERAL DISTRICT COURT COMPLAINT ---
+
+Court: ${court}
+
+Plaintiff: ${plaintiff}
+Defendant: ${defendant}
+
+CAUSE(S) OF ACTION:
+${cause}
+
+FACTUAL BACKGROUND:
+${facts}
+
+PRAYER FOR RELIEF:
+${relief}
+
+This complaint is submitted pursuant to federal rules of civil procedure and demands a trial by jury, or hearing in equity if sovereign jurisdiction is invoked.
+
+Filed this ______ day of ____________, 20____
+
+Respectfully submitted,
+${plaintiff}
+Signature: __________________________
+      `;
+
+      document.getElementById('lawsuitOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
