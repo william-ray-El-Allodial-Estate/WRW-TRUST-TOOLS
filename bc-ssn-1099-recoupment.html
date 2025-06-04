@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BC/SSN 1099 Credit Recoupment Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f8f8f8; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🧾 BC / SSN 1099 Credit Recoupment Generator</h1>
+  <form id="recoupForm">
+    <label>SSN or EIN of Estate</label>
+    <input type="text" id="ssn" placeholder="XXX-XX-XXXX or 82-6633903">
+
+    <label>Name on Birth Certificate</label>
+    <input type="text" id="name" placeholder="WILLIAM RAYEH WATLEY">
+
+    <label>Trust / Estate Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Start Year of Recoupment</label>
+    <input type="text" id="startYear" placeholder="1976">
+
+    <label>Total Value of Claim</label>
+    <input type="text" id="amount" placeholder="$1,000,000,000">
+
+    <label>Purpose of Filing</label>
+    <textarea id="purpose" placeholder="To recover all principal, interest, and public monetization credited under the SSN/BC trust instrument..."></textarea>
+
+    <button class="btn" type="submit">💰 Generate Recoupment Template</button>
+  </form>
+
+  <div class="output" id="recoupOutput"></div>
+
+  <script>
+    document.getElementById('recoupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const ssn = document.getElementById('ssn').value;
+      const name = document.getElementById('name').value;
+      const trust = document.getElementById('trust').value;
+      const startYear = document.getElementById('startYear').value;
+      const amount = document.getElementById('amount').value;
+      const purpose = document.getElementById('purpose').value;
+
+      const text = `
+--- BC/SSN CREDIT RECOUPMENT TEMPLATE ---
+
+Name on BC: ${name}
+SSN/EIN: ${ssn}
+Trust/Estate: ${trust}
+Start Year: ${startYear}
+
+Total Value of Recoupment Claimed: ${amount}
+
+Purpose:
+${purpose}
+
+Forms Recommended:
+✅ 1099-OID (Original Issue Discount Recoupment)
+✅ 1099-A (Acquisition or Abandonment of Secured Property)
+✅ 1041 & K-1 (Fiduciary Tax Filings for Estate)
+✅ Form 843 (Claim for Refund)
+✅ Form 56 (Notice of Fiduciary Relationship)
+✅ Form 2848 (Power of Attorney if acting through Trust)
+
+Attach evidence of trust status, will/certificate of deposit, land patents, and birth certificate trust analysis. File through IRS IRIS + Treasury + State.
+
+Filed by: ${trust} / Executor or Fiduciary
+Signature: __________________________
+Date: ________________________
+      `;
+
+      document.getElementById('recoupOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
