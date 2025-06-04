@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yield Sheet + Schedule B Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 2em; }
+    h1 { font-size: 1.5em; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #ccc; padding: 0.6em; text-align: left; }
+    th { background: #222; color: #fff; }
+    input, select { width: 100%; padding: 0.4em; margin-bottom: 1em; }
+    .btn { padding: 0.6em 1.2em; background: #333; color: #fff; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>📊 Yield Sheet + Schedule B Tracker</h1>
+
+  <form id="yieldForm">
+    <label>Instrument Name</label>
+    <input type="text" id="instrument" placeholder="WRW-BOND-2025">
+
+    <label>Principal ($)</label>
+    <input type="number" id="principal" placeholder="1000000">
+
+    <label>Annual Yield (%)</label>
+    <input type="number" id="yieldRate" step="0.01" placeholder="5">
+
+    <label>Years Elapsed</label>
+    <input type="number" id="yearsElapsed" placeholder="1">
+
+    <button class="btn" type="submit">➕ Add to Yield Sheet</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Instrument</th>
+        <th>Principal</th>
+        <th>Yield %</th>
+        <th>Years</th>
+        <th>Total Yield</th>
+        <th>Schedule B Notes</th>
+      </tr>
+    </thead>
+    <tbody id="yieldTableBody"></tbody>
+  </table>
+
+  <script>
+    document.getElementById('yieldForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('instrument').value;
+      const principal = parseFloat(document.getElementById('principal').value);
+      const rate = parseFloat(document.getElementById('yieldRate').value);
+      const years = parseInt(document.getElementById('yearsElapsed').value);
+      const totalYield = ((principal * rate / 100) * years).toFixed(2);
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>$${principal.toLocaleString()}</td>
+        <td>${rate}%</td>
+        <td>${years}</td>
+        <td>$${parseFloat(totalYield).toLocaleString()}</td>
+        <td>Report on Form 1041 Schedule B</td>
+      `;
+      document.getElementById('yieldTableBody').appendChild(row);
+      document.getElementById('yieldForm').reset();
+    });
+  </script>
+</body>
+</html>
