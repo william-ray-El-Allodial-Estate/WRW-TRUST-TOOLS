@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Religious & Indigenous Rights Exemption Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f5f5f5; padding: 2em; }
+    h1 { text-align: center; }
+    form, #output { background: white; padding: 2em; border-radius: 10px; max-width: 800px; margin: 2em auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    label { font-weight: bold; display: block; margin-top: 1em; }
+    input, textarea { width: 100%; padding: 10px; margin-top: 0.2em; border: 1px solid #ccc; border-radius: 5px; }
+    button { margin-top: 2em; padding: 1em; background: black; color: white; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; }
+    pre { white-space: pre-wrap; font-family: Georgia, serif; }
+  </style>
+</head>
+<body>
+  <h1>AMPAM Religious & Indigenous Rights Exemption Generator</h1>
+  <form id="exemptionForm">
+    <label>Your Full Name:</label>
+    <input type="text" id="fullName" required>
+
+    <label>Tribe / Nation Affiliation:</label>
+    <input type="text" id="tribe" required>
+
+    <label>Type of Exemption:</label>
+    <textarea id="exemptionType" required></textarea>
+
+    <label>Religious Grounds / Spiritual Convictions:</label>
+    <textarea id="religiousBasis" required></textarea>
+
+    <label>Constitutional / Treaty Violations Claimed:</label>
+    <textarea id="violations" required></textarea>
+
+    <label>Recipient Agency / Entity:</label>
+    <input type="text" id="recipient" required>
+
+    <label>Additional Notes or Instructions:</label>
+    <textarea id="notes"></textarea>
+
+    <button type="submit">Generate Exemption Declaration</button>
+  </form>
+
+  <div id="output" style="display:none;">
+    <h2>🛡️ Declaration of Exemption</h2>
+    <pre id="declarationText"></pre>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('exemptionForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById('fullName').value;
+        const tribe = document.getElementById('tribe').value;
+        const exemption = document.getElementById('exemptionType').value;
+        const religion = document.getElementById('religiousBasis').value;
+        const violations = document.getElementById('violations').value;
+        const recipient = document.getElementById('recipient').value;
+        const notes = document.getElementById('notes').value;
+
+        const declaration = `
+To: ${recipient}
+
+Subject: Declaration of Exemption — Indigenous & Religious Rights
+
+I, ${name}, a living soul and Indigenous National of the ${tribe}, do hereby exercise my right to exemption from the following imposed policy or action:
+
+▶️ Requested Exemption: ${exemption}
+
+✝️ Religious Grounds:
+${religion}
+
+📜 Constitutional / Treaty Violations:
+${violations}
+
+This declaration is made under the protection of the following:
+- First Amendment (U.S. Constitution)
+- The Treaty of Peace and Friendship (1786/1836)
+- The United Nations Declaration on the Rights of Indigenous Peoples (UNDRIP)
+- The Vienna Convention on Treaty Law
+- Ecclesiastical Law and Private Indigenous Standing
+
+This declaration shall serve as lawful notice to all public and private actors that I do not consent to the above intrusion or compulsion, and any attempt to enforce such may result in claim of liability and administrative remedy.
+
+${notes ? "📌 Additional Notes:
+" + notes : ""}
+
+Respectfully submitted under full private authority,
+
+Signed,  
+${name}  
+Nation: ${tribe}  
+Date: ${new Date().toLocaleDateString()}
+        `;
+
+        document.getElementById('declarationText').textContent = declaration;
+        document.getElementById('output').style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
