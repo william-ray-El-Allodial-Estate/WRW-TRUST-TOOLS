@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OID Registration – IRS Form 8281 Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fefefe; padding: 2em; color: #111; }
+    h1 { font-size: 1.7em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.6em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; border: 1px solid #aaa; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>OID Registration – IRS Form 8281 Generator</h1>
+  <div class="field">
+    <label for="issuerName">Issuer/Trust Name</label>
+    <input type="text" id="issuerName">
+  </div>
+  <div class="field">
+    <label for="issuerEIN">Issuer EIN</label>
+    <input type="text" id="issuerEIN">
+  </div>
+  <div class="field">
+    <label for="instrumentType">Instrument Type (e.g., Private Bond, Debenture)</label>
+    <input type="text" id="instrumentType">
+  </div>
+  <div class="field">
+    <label for="issueDate">Date of Issue</label>
+    <input type="text" id="issueDate" placeholder="MM/DD/YYYY">
+  </div>
+  <div class="field">
+    <label for="totalAmount">Total Face Amount Issued ($)</label>
+    <input type="text" id="totalAmount">
+  </div>
+  <div class="field">
+    <label for="maturity">Maturity Date</label>
+    <input type="text" id="maturity" placeholder="MM/DD/YYYY">
+  </div>
+  <button onclick="generateOID()">Generate Form 8281 Summary</button>
+  <div id="output"></div>
+
+  <script>
+    function generateOID() {
+      const issuer = document.getElementById("issuerName").value;
+      const ein = document.getElementById("issuerEIN").value;
+      const type = document.getElementById("instrumentType").value;
+      const issueDate = document.getElementById("issueDate").value;
+      const total = document.getElementById("totalAmount").value;
+      const maturity = document.getElementById("maturity").value;
+
+      const output = `
+--------------------------------------------------------
+IRS FORM 8281 – REGISTRATION OF OBLIGATION WITH OID
+--------------------------------------------------------
+Issuer Name: ${issuer}
+EIN: ${ein}
+
+Instrument Type: ${type}
+Date of Issue: ${issueDate}
+Total Face Amount: $${total}
+Maturity Date: ${maturity}
+
+File this summary as part of OID registration under IRC Section 1275(d) and 6039E.
+Include when issuing or reissuing bonds with original issue discount.
+--------------------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>
