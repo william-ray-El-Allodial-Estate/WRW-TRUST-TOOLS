@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IRS Form W-8BEN Generator (Certificate of Foreign Status)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #eef2f7; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.5em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>IRS Form W-8BEN Generator – Certificate of Foreign Status</h1>
+  <div class="field">
+    <label for="name">Name of individual or organization</label>
+    <input type="text" id="name">
+  </div>
+  <div class="field">
+    <label for="citizenship">Country of citizenship</label>
+    <input type="text" id="citizenship">
+  </div>
+  <div class="field">
+    <label for="address">Permanent residence address (non-U.S.)</label>
+    <input type="text" id="address">
+  </div>
+  <div class="field">
+    <label for="taxID">Foreign tax identification number</label>
+    <input type="text" id="taxID">
+  </div>
+  <div class="field">
+    <label for="treaty">Treaty country (if claiming benefits)</label>
+    <input type="text" id="treaty">
+  </div>
+  <button onclick="generateW8BEN()">Generate W-8BEN Summary</button>
+  <div id="output"></div>
+
+  <script>
+    function generateW8BEN() {
+      const name = document.getElementById("name").value;
+      const citizenship = document.getElementById("citizenship").value;
+      const address = document.getElementById("address").value;
+      const taxID = document.getElementById("taxID").value;
+      const treaty = document.getElementById("treaty").value;
+
+      const output = `
+---------------------------------------------------
+IRS FORM W-8BEN – CERTIFICATE OF FOREIGN STATUS
+---------------------------------------------------
+Name: ${name}
+Country of Citizenship: ${citizenship}
+
+Permanent Residence Address:
+${address}
+
+Foreign Tax ID Number: ${taxID}
+Treaty Benefits Claimed Under: ${treaty}
+
+Certify: I am the beneficial owner of all income to which this form relates. I am not a U.S. person.
+---------------------------------------------------
+Signature required if submitted to IRS or withholding agent.
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>
