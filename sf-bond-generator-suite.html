@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SF Bond Generator Suite</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f0f0f0; color: #000; }
+    label { font-weight: bold; display: block; margin-top: 1em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #000; color: white; border: none; cursor: pointer; }
+    .output { background: white; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📄 SF Bond Generator Suite (1414, 1415, 1416, 1418, 24, 25, 25A)</h1>
+  <form id="bondForm">
+    <label for="bondNumber">Bond Form Number</label>
+    <input type="text" id="bondNumber" placeholder="e.g., SF-1414">
+
+    <label for="claimant">Claimant / Surety Name</label>
+    <input type="text" id="claimant" placeholder="e.g., WILLIAM RAYEH WATLEY TRUST">
+
+    <label for="obligee">Obligee / Beneficiary</label>
+    <input type="text" id="obligee" placeholder="e.g., U.S. Department of the Treasury">
+
+    <label for="penalty">Bond Penalty / Amount</label>
+    <input type="text" id="penalty" placeholder="e.g., $25,000,000.00">
+
+    <label for="endorsement">Endorsements (Qualified / Special Clauses)</label>
+    <textarea id="endorsement" placeholder="e.g., Non-Negotiable Without Principal Authorization..."></textarea>
+
+    <label for="date">Date</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Bond</button>
+  </form>
+
+  <div class="output" id="bondOutput"></div>
+
+  <script>
+    document.getElementById("bondForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const bondNumber = document.getElementById("bondNumber").value;
+      const claimant = document.getElementById("claimant").value;
+      const obligee = document.getElementById("obligee").value;
+      const penalty = document.getElementById("penalty").value;
+      const endorsement = document.getElementById("endorsement").value;
+      const date = document.getElementById("date").value;
+
+      const bondText = `
+===================================================
+STANDARD FORM BOND (${bondNumber})
+===================================================
+
+DATE: ${date}
+
+SURETY: ${claimant}
+OBLIGEE: ${obligee}
+BOND PENALTY: ${penalty}
+
+ENDORSEMENTS / QUALIFIED CLAUSES:
+${endorsement}
+
+This bond is executed in accordance with all relevant fiduciary, public contract, and performance trust principles and shall be administered per governing treaty law, surety law, and private contractual authority.
+
+Executed on this date by:
+${claimant}
+Bonded Trustee / Private Surety
+      `;
+
+      document.getElementById("bondOutput").textContent = bondText;
+    });
+  </script>
+</body>
+</html>

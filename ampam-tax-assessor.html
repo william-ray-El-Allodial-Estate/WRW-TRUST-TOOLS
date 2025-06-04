@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AMPAM Tax Assessor Claims & Notices Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #fefefe; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #111; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🏛 AMPAM Tax Assessor Claims & Notices Generator</h1>
+  <form id="taxForm">
+    <label for="claimant">Claimant / Trust Name</label>
+    <input type="text" id="claimant" placeholder="e.g., WILLIAM RAYEH WATLEY TRUST">
+
+    <label for="subject">Subject of Assessment (e.g., Entity, Parcel ID, Account #)</label>
+    <input type="text" id="subject" placeholder="e.g., Detroit Land Bank / Parcel #13019832">
+
+    <label for="amount">Claimed Value / Credit</label>
+    <input type="text" id="amount" placeholder="e.g., $50,000.00 (or BOE #WRW-TR-2025-0012)">
+
+    <label for="basis">Basis for Claim</label>
+    <textarea id="basis" placeholder="e.g., Unauthorized taxation, double trust collection, overpaid utility credit..."></textarea>
+
+    <label for="jurisdiction">Jurisdiction / Treaty Reference</label>
+    <input type="text" id="jurisdiction" placeholder="e.g., AMPAM – Treaty of Madrid 1880 / Peace & Friendship Treaty">
+
+    <label for="recipient">Notified Entity or Office</label>
+    <input type="text" id="recipient" placeholder="e.g., Wayne County Assessor / IRS / MDHHS">
+
+    <label for="date">Date of Claim</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Claim Notice</button>
+  </form>
+
+  <div class="output" id="claimOutput"></div>
+
+  <script>
+    document.getElementById("taxForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const claimant = document.getElementById("claimant").value;
+      const subject = document.getElementById("subject").value;
+      const amount = document.getElementById("amount").value;
+      const basis = document.getElementById("basis").value;
+      const jurisdiction = document.getElementById("jurisdiction").value;
+      const recipient = document.getElementById("recipient").value;
+      const date = document.getElementById("date").value;
+
+      const claimNotice = `
+=============================================================
+AMPAM TAX ASSESSOR CLAIM & NOTICE
+=============================================================
+
+DATE: ${date}
+FROM: ${claimant}
+TO: ${recipient}
+
+Subject of Assessment: ${subject}
+Claimed Credit or Value: ${amount}
+Jurisdiction: ${jurisdiction}
+
+Basis for Claim:
+${basis}
+
+Under the full weight of commercial and treaty law, the above claim is hereby noticed and demands due remedy or response within 30 days of receipt.
+
+Failure to rebut or discharge shall result in commercial default and may initiate further administrative actions under sovereign enforcement protocol.
+
+Respectfully,
+${claimant}
+AMPAM Revenue & Indemnity Division
+      `;
+
+      document.getElementById("claimOutput").textContent = claimNotice;
+    });
+  </script>
+</body>
+</html>

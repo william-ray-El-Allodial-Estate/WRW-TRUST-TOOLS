@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Supplemental SF Forms Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #fdfdfd; color: #000; }
+    label { font-weight: bold; display: block; margin-top: 1em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #000; color: #fff; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📑 SF Forms Generator (1455, 1522, 1047, 1034, 1038, 274, 273, 275)</h1>
+  <form id="sfFormGen">
+    <label for="formNumber">SF Form Number</label>
+    <input type="text" id="formNumber" placeholder="e.g., SF-1455">
+
+    <label for="claimant">Claimant / Beneficiary</label>
+    <input type="text" id="claimant" placeholder="e.g., WILLIAM RAYEH WATLEY TRUST">
+
+    <label for="agency">Agency or Office</label>
+    <input type="text" id="agency" placeholder="e.g., U.S. Treasury / GSA / DOD">
+
+    <label for="amount">Claim Amount</label>
+    <input type="text" id="amount" placeholder="e.g., $3,000,000.00 or BOE #WRW-TR-2025-XX">
+
+    <label for="basis">Claim or Performance Basis</label>
+    <textarea id="basis" placeholder="e.g., Fiduciary claim for unpaid compensation / reinsurance trust performance / bond indemnification..."></textarea>
+
+    <label for="date">Date</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Filing Entry</button>
+  </form>
+
+  <div class="output" id="sfOutput"></div>
+
+  <script>
+    document.getElementById("sfFormGen").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formNumber = document.getElementById("formNumber").value;
+      const claimant = document.getElementById("claimant").value;
+      const agency = document.getElementById("agency").value;
+      const amount = document.getElementById("amount").value;
+      const basis = document.getElementById("basis").value;
+      const date = document.getElementById("date").value;
+
+      const sfNotice = `
+=====================================================
+${formNumber} FILING RECORD – ADMINISTRATIVE NOTICE
+=====================================================
+
+Date: ${date}
+Form Type: ${formNumber}
+
+Claimant / Beneficiary: ${claimant}
+Agency or Office: ${agency}
+Claim / Indemnity Amount: ${amount}
+
+Basis for Filing:
+${basis}
+
+This filing is administered under applicable surety, administrative, and trust law principles and shall be recognized as lawful tender of notice, performance, or claim unless rebutted with proof of rejection within 30 days.
+
+Respectfully Submitted,
+${claimant}
+Treaty Trust Executor / Private Fiduciary
+      `;
+
+      document.getElementById("sfOutput").textContent = sfNotice;
+    });
+  </script>
+</body>
+</html>

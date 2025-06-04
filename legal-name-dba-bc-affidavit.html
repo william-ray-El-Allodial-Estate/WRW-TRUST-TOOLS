@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Name/DBA/BC Non-Authentication Affidavit Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #fefefe; color: #000; }
+    label { font-weight: bold; display: block; margin-top: 1em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #000; color: #fff; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📝 Legal Name Change / DBA / BC Non-Authentication Affidavit Generator</h1>
+  <form id="affidavitForm">
+    <label for="originalName">Original Name (on record)</label>
+    <input type="text" id="originalName" placeholder="e.g., WILLIAM RAYEH WATLEY">
+
+    <label for="declaredName">Declared New Name / DBA</label>
+    <input type="text" id="declaredName" placeholder="e.g., william-ray: El / watley: william-rayeh">
+
+    <label for="reason">Reason / Affidavit Statement</label>
+    <textarea id="reason" placeholder="e.g., Correction of record to reflect living status, rejection of corporate presumption, commercial use restriction..."></textarea>
+
+    <label for="date">Effective Date</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Affidavit</button>
+  </form>
+
+  <div class="output" id="outputAffidavit"></div>
+
+  <script>
+    document.getElementById("affidavitForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const originalName = document.getElementById("originalName").value;
+      const declaredName = document.getElementById("declaredName").value;
+      const reason = document.getElementById("reason").value;
+      const date = document.getElementById("date").value;
+
+      const affidavit = `
+=======================================================
+AFFIDAVIT OF LEGAL NAME DECLARATION & NON-AUTHENTICATION
+=======================================================
+
+DATE: ${date}
+
+I, the undersigned, formerly recorded as: ${originalName}
+now affirm, declare, and attest my lawful and sovereign designation as:
+${declaredName}
+
+STATEMENT OF DECLARATION:
+${reason}
+
+This affidavit also affirms non-authentication of any State-issued Birth Certificate record as binding, commercial, or contractually valid without my express living authorization.
+
+Declared under penalty of perjury under applicable treaty, trust, and sovereign law.
+
+Signed,
+${declaredName}
+Private Living Claimant / Affiant
+Jurisdiction: Private Estate, AMPAM
+      `;
+
+      document.getElementById("outputAffidavit").textContent = affidavit;
+    });
+  </script>
+</body>
+</html>
