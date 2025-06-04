@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FS-1522 Generator – Payment of Savings Bonds</title>
+    <style>
+        body { font-family: Georgia, serif; background: #f5f5f5; padding: 2em; }
+        h1 { text-align: center; font-size: 2em; margin-bottom: 1em; }
+        form { background: white; padding: 2em; border-radius: 10px; max-width: 850px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 1em; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 0.2em; }
+        .table { width: 100%; margin-top: 1em; border-collapse: collapse; }
+        .table th, .table td { border: 1px solid #999; padding: 0.5em; text-align: left; }
+        .section-title { margin-top: 2em; font-size: 1.2em; font-weight: bold; }
+        button { margin-top: 2em; padding: 1em; background: black; color: white; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>FS-1522 Generator – Payment of Savings & Retirement Securities</h1>
+    <form>
+        <div class="section-title">1. Description of Bonds</div>
+        <label>Name on the securities:</label>
+        <input type="text" name="name_on_bonds" placeholder="Name(s) listed on the bonds">
+
+        <table class="table">
+            <tr>
+                <th>Issue Date</th>
+                <th>Serial Number</th>
+                <th>Issue Date</th>
+                <th>Serial Number</th>
+                <th>Issue Date</th>
+                <th>Serial Number</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="id1"></td>
+                <td><input type="text" name="sn1"></td>
+                <td><input type="text" name="id2"></td>
+                <td><input type="text" name="sn2"></td>
+                <td><input type="text" name="id3"></td>
+                <td><input type="text" name="sn3"></td>
+            </tr>
+        </table>
+
+        <div class="section-title">2. Direct Deposit Instructions</div>
+        <label>Social Security Number (or)</label>
+        <input type="text" name="ssn">
+        <label>Employer Identification Number (if any)</label>
+        <input type="text" name="ein">
+        <label>Name(s) on the Account:</label>
+        <input type="text" name="account_name">
+        <label>Bank Routing Number:</label>
+        <input type="text" name="routing">
+        <label>Depositor's Account Number:</label>
+        <input type="text" name="account_number">
+        <label>Type of Account:</label>
+        <input type="radio" name="account_type" value="Checking"> Checking
+        <input type="radio" name="account_type" value="Savings"> Savings
+        <label>Financial Institution Name:</label>
+        <input type="text" name="bank_name">
+        <label>Financial Institution Phone Number:</label>
+        <input type="text" name="bank_phone">
+
+        <div class="section-title">3. Signature & Certification</div>
+        <label>Sign Here:</label>
+        <input type="text" name="signature">
+        <label>Print Name:</label>
+        <input type="text" name="printed_name">
+        <label>Social Security Number:</label>
+        <input type="text" name="cert_ssn">
+        <label>Home Address:</label>
+        <textarea name="address"></textarea>
+        <label>Daytime Phone Number:</label>
+        <input type="text" name="phone">
+        <label>Email Address:</label>
+        <input type="text" name="email">
+
+        <button type="submit">Generate FS-1522</button>
+    </form>
+</body>
+</html>

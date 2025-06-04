@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FS-1455 Generator – Request by Fiduciary</title>
+    <style>
+        body { font-family: Georgia, serif; background: #f5f5f5; padding: 2em; }
+        h1 { text-align: center; font-size: 2em; margin-bottom: 1em; }
+        form { background: white; padding: 2em; border-radius: 10px; max-width: 800px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 1em; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 0.2em; }
+        .section-title { margin-top: 2em; font-size: 1.2em; font-weight: bold; }
+        .table { width: 100%; margin-top: 1em; border-collapse: collapse; }
+        .table th, .table td { border: 1px solid #999; padding: 0.5em; text-align: left; }
+        button { margin-top: 2em; padding: 1em; background: black; color: white; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>FS-1455 Generator – Request by Fiduciary for Distribution</h1>
+    <form>
+        <div class="section-title">Part A – Reason for Distribution</div>
+        <label>
+            <input type="checkbox" name="reason" value="Estate or Trust Entitled"> Distribution of an estate OR trust to person(s) entitled
+        </label>
+        <label>
+            <input type="checkbox" name="reason" value="Other"> Other reason: <input type="text" name="otherReason" placeholder="Specify reason if other">
+        </label>
+
+        <div class="section-title">Part B – Distribution of Securities</div>
+        <label>Distribute to (Name):</label>
+        <input type="text" name="distributeeName">
+
+        <label>SSN or EIN:</label>
+        <input type="text" name="ssn">
+
+        <label>Telephone Number:</label>
+        <input type="text" name="phone">
+
+        <label>Address:</label>
+        <textarea name="address"></textarea>
+
+        <div class="section-title">Description of Securities / Related Payments</div>
+        <table class="table">
+            <tr>
+                <th>Title of Security</th>
+                <th>Issue Date</th>
+                <th>Face Amount</th>
+                <th>Identifying Number</th>
+                <th>Registration</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="title1"></td>
+                <td><input type="text" name="issue1"></td>
+                <td><input type="text" name="face1"></td>
+                <td><input type="text" name="id1"></td>
+                <td><input type="text" name="reg1"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="title2"></td>
+                <td><input type="text" name="issue2"></td>
+                <td><input type="text" name="face2"></td>
+                <td><input type="text" name="id2"></td>
+                <td><input type="text" name="reg2"></td>
+            </tr>
+        </table>
+
+        <button type="submit">Generate FS-1455</button>
+    </form>
+</body>
+</html>
