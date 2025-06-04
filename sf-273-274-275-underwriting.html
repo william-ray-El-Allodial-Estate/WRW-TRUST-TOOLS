@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SF-273/274/275 Underwriting Generator – AMPAM Trust Company</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f9f9f9; padding: 2em; color: #000; }
+    label { font-weight: bold; display: block; margin-top: 1em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { background: #000; color: white; padding: 0.7em 1.5em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📜 SF-273/274/275 Underwriting Generator</h1>
+  <form id="underwriteForm">
+    <label for="form">Form Type (273, 274, or 275)</label>
+    <input type="text" id="form" placeholder="e.g., SF-275">
+
+    <label for="trustCompany">Issuing Trust Company</label>
+    <input type="text" id="trustCompany" placeholder="e.g., Allodial Domain Surety & Underwriting Trust">
+
+    <label for="obligee">Obligee / Beneficiary</label>
+    <input type="text" id="obligee" placeholder="e.g., U.S. Treasury or Wayne County Circuit Court">
+
+    <label for="principal">Principal / Insured Party</label>
+    <input type="text" id="principal" placeholder="e.g., WILLIAM RAYEH WATLEY TRUST or Client Name">
+
+    <label for="amount">Bond Amount</label>
+    <input type="text" id="amount" placeholder="$25,000,000.00">
+
+    <label for="purpose">Purpose / Risk Covered</label>
+    <textarea id="purpose" placeholder="Describe fiduciary performance, claim protection, or risk assumption..."></textarea>
+
+    <label for="date">Date of Issuance</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Form Record</button>
+  </form>
+
+  <div class="output" id="formOutput"></div>
+
+  <script>
+    document.getElementById("underwriteForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = document.getElementById("form").value;
+      const trustCompany = document.getElementById("trustCompany").value;
+      const obligee = document.getElementById("obligee").value;
+      const principal = document.getElementById("principal").value;
+      const amount = document.getElementById("amount").value;
+      const purpose = document.getElementById("purpose").value;
+      const date = document.getElementById("date").value;
+
+      const record = `
+============================================================
+${form} – SURETY / REINSURANCE / UNDERWRITING CERTIFICATE
+============================================================
+
+DATE: ${date}
+FORM TYPE: ${form}
+
+ISSUER (SURETY / TRUST COMPANY):
+${trustCompany}
+
+PRINCIPAL:
+${principal}
+
+OBLIGEE / BENEFICIARY:
+${obligee}
+
+BOND AMOUNT:
+${amount}
+
+PURPOSE / COVERED RISK:
+${purpose}
+
+This instrument is tendered as lawful surety and risk assumption for the above-described matter. Issued in good faith by a private underwriting trust under sovereign treaty jurisdiction (AMPAM).
+
+Signed:
+${trustCompany}
+Private Trust Registrar / Underwriter
+      `;
+
+      document.getElementById("formOutput").textContent = record;
+    });
+  </script>
+</body>
+</html>
