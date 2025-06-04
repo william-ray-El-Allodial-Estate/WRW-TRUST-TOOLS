@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Administrative Lien Builder</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f7f7f7; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #111; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📌 Custom Lien Builder</h1>
+  <form id="lienForm">
+    <label>Secured Party / Claimant</label>
+    <input type="text" id="claimant" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Debtor Name / Entity</label>
+    <input type="text" id="debtor" placeholder="WAYNE COUNTY / Officer Blake Navarre">
+
+    <label>Claimed Violation or Harm</label>
+    <textarea id="violation" placeholder="Trespass upon trust property, unlawful conversion, administrative fraud..."></textarea>
+
+    <label>Lien Amount</label>
+    <input type="text" id="amount" placeholder="$25,000,000">
+
+    <label>Basis for Claim</label>
+    <textarea id="basis" placeholder="Filed land patents, trust reconveyance, unrebutted affidavits, court submissions..."></textarea>
+
+    <button class="btn" type="submit">📍 Generate Lien Document</button>
+  </form>
+
+  <div class="output" id="lienOutput"></div>
+
+  <script>
+    document.getElementById('lienForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const claimant = document.getElementById('claimant').value;
+      const debtor = document.getElementById('debtor').value;
+      const violation = document.getElementById('violation').value;
+      const amount = document.getElementById('amount').value;
+      const basis = document.getElementById('basis').value;
+
+      const text = `
+--- ADMINISTRATIVE LIEN NOTICE ---
+
+Secured Party / Claimant:
+${claimant}
+
+Debtor / Respondent:
+${debtor}
+
+Violation Summary:
+${violation}
+
+Lien Amount Claimed:
+${amount}
+
+Basis for Claim:
+${basis}
+
+This lien is filed under commercial affidavit, UCC-1 authority, private trust jurisdiction, and non-judicial equitable remedy. 
+Failure to rebut within 21 days shall constitute default and admission of debt.
+
+Date: ________________________
+Authorized Signature: ________________________
+      `;
+
+      document.getElementById('lienOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>

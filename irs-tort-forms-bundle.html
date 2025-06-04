@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IRS 3949-A, 211, 13909 & SF-95 Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fefefe; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📄 IRS & Tort Claim Form Generator</h1>
+  <form id="formBundle">
+    <label>Complainant Name</label>
+    <input type="text" id="name" placeholder="William-Rayeh: Watley">
+
+    <label>Target Entity or Person</label>
+    <input type="text" id="target" placeholder="Wayne County Treasurer / Blake Navarre / IRS Agent">
+
+    <label>Type of Violation</label>
+    <textarea id="violation" placeholder="Misuse of EIN or SSN, trust asset theft, unlawful taxation, property seizure..."></textarea>
+
+    <label>Date(s) of Violation</label>
+    <input type="text" id="date" placeholder="July 2021 – Present">
+
+    <label>Claimed Damages</label>
+    <input type="text" id="damages" placeholder="$25,000,000 (or estimated impact)">
+
+    <button class="btn" type="submit">🧾 Generate Bundle Summary</button>
+  </form>
+
+  <div class="output" id="formOutput"></div>
+
+  <script>
+    document.getElementById('formBundle').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const target = document.getElementById('target').value;
+      const violation = document.getElementById('violation').value;
+      const date = document.getElementById('date').value;
+      const damages = document.getElementById('damages').value;
+
+      const text = `
+--- FORM BUNDLE SUMMARY: IRS & TORT REPORTS ---
+
+Complainant: ${name}
+Respondent: ${target}
+
+Violation Type:
+${violation}
+
+Incident Date(s): ${date}
+Estimated Damages: ${damages}
+
+Forms Recommended:
+• IRS Form 3949-A: Report Suspected Tax Fraud or Trust Misuse
+• IRS Form 211: Application for Reward for Whistleblower Submission
+• IRS Form 13909: Report of Suspected Misconduct by Tax-Exempt Entity
+• SF-95: Federal Tort Claim for Damages and Injury
+
+Supporting evidence, trust filings, and affidavits should accompany these forms.
+
+Date: ________________________
+Signature: ___________________
+      `;
+
+      document.getElementById('formOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
