@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FTC & CFPB Complaint Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f8f8f8; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📝 FTC / CFPB Complaint Generator</h1>
+  <form id="complaintForm">
+    <label>Complainant Name</label>
+    <input type="text" id="name" placeholder="William-Rayeh: Watley">
+
+    <label>Institution or Party Complained Against</label>
+    <input type="text" id="target" placeholder="Wells Fargo Bank / Experian / Credit Card Company">
+
+    <label>Description of Harm or Violation</label>
+    <textarea id="description" placeholder="Closed account without explanation after lawful request for SSN verification protocol, blocked trust access, misrepresented terms..."></textarea>
+
+    <label>Date of Incident</label>
+    <input type="text" id="date" placeholder="June 1, 2025">
+
+    <label>Relief or Action Requested</label>
+    <textarea id="relief" placeholder="Full explanation and written policy, reinstatement of trust account, damages for wrongful denial, remove red flag or fraud designation..."></textarea>
+
+    <button class="btn" type="submit">🚨 Generate Complaint</button>
+  </form>
+
+  <div class="output" id="complaintOutput"></div>
+
+  <script>
+    document.getElementById('complaintForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const target = document.getElementById('target').value;
+      const description = document.getElementById('description').value;
+      const date = document.getElementById('date').value;
+      const relief = document.getElementById('relief').value;
+
+      const text = `
+--- FEDERAL CONSUMER COMPLAINT ---
+
+Filed with: Federal Trade Commission (FTC) / Consumer Financial Protection Bureau (CFPB)
+
+Complainant: ${name}
+Against: ${target}
+Date of Violation: ${date}
+
+Summary of Complaint:
+${description}
+
+Requested Action:
+${relief}
+
+This complaint is submitted for administrative review, possible investigation, and enforcement under consumer protection and financial transparency laws. Additional filings pending with U.S. Treasury, IRS, and relevant fiduciary authorities.
+
+Submitted on: _______________________
+Signed: ${name}
+      `;
+
+      document.getElementById('complaintOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
