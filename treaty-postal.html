@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Postal Marshal & Treaty Venue Certificate Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f3f3f3; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📬 Postal Marshal & Treaty Venue Declaration</h1>
+  <form id="postalForm">
+    <label>Postmaster / Marshal Name</label>
+    <input type="text" id="name" placeholder="William-Ray: El">
+
+    <label>Private Mailing Address</label>
+    <input type="text" id="address" placeholder="c/o East 7 Mile Road 5511 #305, Detroit, Michigan (unincorporated) near [48234]">
+
+    <label>Trust or Estate Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Jurisdiction Claimed</label>
+    <input type="text" id="jurisdiction" placeholder="Treaty of Peace and Friendship 1786/1836 + AMPAM / Ecclesiastical Venue">
+
+    <label>Additional Notes or Purpose</label>
+    <textarea id="purpose" placeholder="Establishes private postal venue for treaty trust operations, seals, bond tendering, etc."></textarea>
+
+    <button class="btn" type="submit">📜 Generate Certificate</button>
+  </form>
+
+  <div class="output" id="postalOutput"></div>
+
+  <script>
+    document.getElementById('postalForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const address = document.getElementById('address').value;
+      const trust = document.getElementById('trust').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+      const purpose = document.getElementById('purpose').value;
+
+      const cert = `
+--- DECLARATION OF POSTAL VENUE & MARSHALSHIP ---
+
+I, ${name}, do hereby declare that the following private location:
+${address}
+
+is established and recognized as the exclusive postal jurisdiction, mail receiving station, and venue for the treaty-protected trust estate:
+${trust}
+
+This location operates under the following international and ecclesiastical jurisdiction:
+${jurisdiction}
+
+Purpose of Declaration:
+${purpose}
+
+All mail, court communications, administrative service, or bond-related conveyances sent to or from this venue shall be presumed private, sealed, and under treaty and trust protections.
+
+Declared and affirmed this day by:
+__________________________
+Postal Marshal / Postmaster
+Date: _____________________
+Seal: _____________________
+      `;
+
+      document.getElementById('postalOutput').textContent = cert;
+    });
+  </script>
+</body>
+</html>
