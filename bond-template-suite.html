@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bond Template Suite – Investment, Fiduciary, BOE, IBOE</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f5f5f5; padding: 2em; }
+    textarea, input, select { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; margin-bottom: 2em; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; }
+  </style>
+</head>
+<body>
+  <h1>💼 Bond Template Suite</h1>
+  <form id="bondForm">
+    <label>Bond Type</label>
+    <select id="bondType">
+      <option value="Investment Bond">Investment Bond</option>
+      <option value="Fiduciary Bond">Fiduciary Bond</option>
+      <option value="BOE">Bill of Exchange (BOE)</option>
+      <option value="IBOE">International Bill of Exchange (IBOE)</option>
+    </select>
+
+    <label>Issuer Name</label>
+    <input type="text" id="issuer" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Principal Amount (USD)</label>
+    <input type="number" id="principal" placeholder="100000000">
+
+    <label>Annual Yield (%)</label>
+    <input type="number" step="0.01" id="yield" placeholder="5">
+
+    <label>Maturity Term</label>
+    <input type="text" id="maturity" placeholder="99 years from issue date">
+
+    <label>Governing Law / Jurisdiction</label>
+    <input type="text" id="jurisdiction" placeholder="Allodium Moroccan Praedium Ante Michigan (AMPAM)">
+
+    <button class="btn" type="submit">📝 Generate Bond Template</button>
+  </form>
+
+  <div class="output" id="bondOutput"></div>
+
+  <script>
+    document.getElementById('bondForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const type = document.getElementById('bondType').value;
+      const issuer = document.getElementById('issuer').value;
+      const principal = parseFloat(document.getElementById('principal').value).toLocaleString();
+      const yieldRate = document.getElementById('yield').value;
+      const maturity = document.getElementById('maturity').value;
+      const law = document.getElementById('jurisdiction').value;
+
+      let template = `\n--- ${type.toUpperCase()} ---\n\n`;
+      template += `Issuer: ${issuer}\nPrincipal: $${principal}\nAnnual Yield: ${yieldRate}%\nMaturity: ${maturity}\nJurisdiction: ${law}\n\n`;
+
+      if (type === 'Investment Bond') {
+        template += `This Investment Bond certifies that the Issuer obligates itself to pay the stated principal amount plus compounded interest at the annual rate stated above, payable in accordance with the maturity term and subject to the private trust indenture.`;
+      } else if (type === 'Fiduciary Bond') {
+        template += `This Fiduciary Bond guarantees the performance, fidelity, and lawful discharge of duties by the fiduciary party bound under trust and equity, secured by the principal stated above as collateral against any breach of public trust.`;
+      } else if (type === 'BOE') {
+        template += `By this Bill of Exchange, the Issuer orders the obligor to honor payment of the stated principal amount to the payee under international and commercial remedy laws, including UCC 3-104, UCC 3-419, and Public Law 73-10.`;
+      } else {
+        template += `This International Bill of Exchange is hereby tendered to the addressee for settlement, discharge, or credit against sovereign claim under treaty law, Vienna Convention, and all applicable private commercial obligations.`;
+      }
+
+      document.getElementById('bondOutput').textContent = template;
+    });
+  </script>
+</body>
+</html>
