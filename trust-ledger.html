@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trust Ledger + OID Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2em; }
+    h1 { font-size: 1.8em; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #ccc; padding: 0.6em; text-align: left; }
+    th { background: #333; color: #fff; }
+    input, select { width: 100%; padding: 0.4em; }
+    .btn { margin-top: 1em; padding: 0.6em 1.2em; background: #444; color: #fff; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>📒 Trust Ledger & OID Yield Tracker</h1>
+
+  <table id="ledgerTable">
+    <thead>
+      <tr>
+        <th>Instrument</th>
+        <th>Type</th>
+        <th>Face Value</th>
+        <th>Yield %</th>
+        <th>OID Amount</th>
+        <th>Maturity Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="ledgerBody"></tbody>
+  </table>
+
+  <h3>Add New Entry</h3>
+  <form id="ledgerForm">
+    <input type="text" id="instrument" placeholder="e.g. WRW-BOND-001" required>
+    <select id="type">
+      <option value="BOE">BOE</option>
+      <option value="Bond">Bond</option>
+      <option value="IBOE">IBOE</option>
+      <option value="Claim">Claim</option>
+    </select>
+    <input type="number" id="faceValue" placeholder="e.g. 1000000" required>
+    <input type="number" step="0.01" id="yield" placeholder="e.g. 5" required>
+    <input type="date" id="maturity">
+    <select id="status">
+      <option value="Active">Active</option>
+      <option value="Filed">Filed</option>
+      <option value="Claimed">Claimed</option>
+      <option value="Matured">Matured</option>
+    </select>
+    <button class="btn" type="submit">➕ Add to Ledger</button>
+  </form>
+
+  <script>
+    const ledgerForm = document.getElementById('ledgerForm');
+    const ledgerBody = document.getElementById('ledgerBody');
+
+    ledgerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const instrument = document.getElementById('instrument').value;
+      const type = document.getElementById('type').value;
+      const faceValue = parseFloat(document.getElementById('faceValue').value);
+      const yieldRate = parseFloat(document.getElementById('yield').value);
+      const maturity = document.getElementById('maturity').value;
+      const status = document.getElementById('status').value;
+      const oid = (faceValue * (yieldRate / 100)).toFixed(2);
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${instrument}</td>
+        <td>${type}</td>
+        <td>$${faceValue.toLocaleString()}</td>
+        <td>${yieldRate}%</td>
+        <td>$${oid}</td>
+        <td>${maturity}</td>
+        <td>${status}</td>
+      `;
+      ledgerBody.appendChild(row);
+      ledgerForm.reset();
+    });
+  </script>
+</body>
+</html>
