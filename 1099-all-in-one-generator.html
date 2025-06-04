@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All-in-One 1099 Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; margin-bottom: 0.5em; }
+    select, input, button { margin-top: 0.5em; padding: 0.5em; font-size: 1em; width: 100%; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>All-in-One 1099 Generator</h1>
+  <div class="field">
+    <label for="formType">Select 1099 Form Type:</label>
+    <select id="formType">
+      <option>MISC</option>
+      <option>NEC</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>INT</option>
+      <option>DIV</option>
+      <option>K</option>
+      <option>S</option>
+      <option>OID</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="payerName">Payer Name</label>
+    <input type="text" id="payerName">
+  </div>
+  <div class="field">
+    <label for="recipientName">Recipient Name</label>
+    <input type="text" id="recipientName">
+  </div>
+  <div class="field">
+    <label for="amount">Amount</label>
+    <input type="number" id="amount">
+  </div>
+  <button onclick="generate1099()">Generate 1099</button>
+  <div id="output"></div>
+
+  <script>
+    function generate1099() {
+      const type = document.getElementById("formType").value;
+      const payer = document.getElementById("payerName").value;
+      const recipient = document.getElementById("recipientName").value;
+      const amount = document.getElementById("amount").value;
+
+      const output = `
+------------------------------
+1099-${type} FORM PREVIEW
+------------------------------
+Payer:     ${payer}
+Recipient: ${recipient}
+Amount:    $${amount}
+
+This is a draft for IRS Form 1099-${type}.
+Ensure accuracy before filing.
+------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Non-UCC Filing Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f8ff; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.5em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Non-UCC Filing Generator</h1>
+  <div class="field">
+    <label for="filingTitle">Filing Title</label>
+    <input type="text" id="filingTitle">
+  </div>
+  <div class="field">
+    <label for="recordingEntity">Recording Entity or Venue</label>
+    <input type="text" id="recordingEntity">
+  </div>
+  <div class="field">
+    <label for="relatedParties">Related Parties</label>
+    <input type="text" id="relatedParties">
+  </div>
+  <div class="field">
+    <label for="documentBody">Filing Text / Declaration</label>
+    <textarea id="documentBody" rows="5"></textarea>
+  </div>
+  <button onclick="generateNonUCC()">Generate Filing</button>
+  <div id="output"></div>
+
+  <script>
+    function generateNonUCC() {
+      const title = document.getElementById("filingTitle").value;
+      const entity = document.getElementById("recordingEntity").value;
+      const parties = document.getElementById("relatedParties").value;
+      const body = document.getElementById("documentBody").value;
+
+      const output = `
+---------------------------------------------------
+NON-UCC PUBLIC RECORD FILING
+---------------------------------------------------
+Title: ${title}
+Recording Venue: ${entity}
+Parties: ${parties}
+
+Declaration / Text:
+${body}
+
+NOTE: File with County Recorder, Clerk of Court, or alternative repository.
+---------------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

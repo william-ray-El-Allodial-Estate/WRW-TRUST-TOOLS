@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IRS Form 56 Generator (Notice Concerning Fiduciary Relationship)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5fffa; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.5em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>IRS Form 56 Generator – Notice Concerning Fiduciary Relationship</h1>
+  <div class="field">
+    <label for="nameFiduciary">Fiduciary Name</label>
+    <input type="text" id="nameFiduciary">
+  </div>
+  <div class="field">
+    <label for="fiduciaryAddress">Fiduciary Address</label>
+    <input type="text" id="fiduciaryAddress">
+  </div>
+  <div class="field">
+    <label for="taxpayerName">Taxpayer or Estate Name</label>
+    <input type="text" id="taxpayerName">
+  </div>
+  <div class="field">
+    <label for="taxID">EIN or SSN of Estate/Trust</label>
+    <input type="text" id="taxID">
+  </div>
+  <div class="field">
+    <label for="reason">Reason for Filing</label>
+    <textarea id="reason" rows="3" placeholder="e.g., Appointment as Trustee, Executor, etc."></textarea>
+  </div>
+  <div class="field">
+    <label for="dates">Fiduciary Start Date</label>
+    <input type="text" id="dates" placeholder="MM/DD/YYYY">
+  </div>
+  <button onclick="generate56()">Generate Form 56 Summary</button>
+  <div id="output"></div>
+
+  <script>
+    function generate56() {
+      const fiduciary = document.getElementById("nameFiduciary").value;
+      const address = document.getElementById("fiduciaryAddress").value;
+      const taxpayer = document.getElementById("taxpayerName").value;
+      const taxID = document.getElementById("taxID").value;
+      const reason = document.getElementById("reason").value;
+      const dates = document.getElementById("dates").value;
+
+      const output = `
+---------------------------------------------------
+IRS FORM 56 – NOTICE CONCERNING FIDUCIARY RELATIONSHIP SUMMARY
+---------------------------------------------------
+Fiduciary: ${fiduciary}
+Address: ${address}
+
+Representing: ${taxpayer}
+EIN/SSN: ${taxID}
+
+Reason for Filing: ${reason}
+Fiduciary Relationship Start Date: ${dates}
+
+Submit IRS Form 56 to the appropriate IRS office based on jurisdiction.
+---------------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

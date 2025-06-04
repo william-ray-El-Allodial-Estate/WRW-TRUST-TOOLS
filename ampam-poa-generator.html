@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AMPAM Power of Attorney Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fffbe0; padding: 2em; color: #222; }
+    h1 { font-size: 2em; margin-bottom: 0.5em; }
+    input, textarea, button { margin-top: 0.4em; padding: 0.6em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #aaa; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>AMPAM Power of Attorney Generator</h1>
+  <div class="field">
+    <label for="principalName">Principal Name (Grantor of Authority)</label>
+    <input type="text" id="principalName">
+  </div>
+  <div class="field">
+    <label for="attorneyName">Attorney-in-Fact Name (Agent/Grantee)</label>
+    <input type="text" id="attorneyName">
+  </div>
+  <div class="field">
+    <label for="powersGranted">Powers Granted (e.g. estate control, filings, negotiations)</label>
+    <textarea id="powersGranted" rows="4"></textarea>
+  </div>
+  <div class="field">
+    <label for="effectiveDate">Effective Date</label>
+    <input type="text" id="effectiveDate" placeholder="MM/DD/YYYY">
+  </div>
+  <div class="field">
+    <label for="jurisdiction">Jurisdiction</label>
+    <input type="text" id="jurisdiction" value="Allodium Moroccan Praedium Ante Michigan (AMPAM)">
+  </div>
+  <button onclick="generatePOA()">Generate AMPAM POA Summary</button>
+  <div id="output"></div>
+
+  <script>
+    function generatePOA() {
+      const principal = document.getElementById("principalName").value;
+      const attorney = document.getElementById("attorneyName").value;
+      const powers = document.getElementById("powersGranted").value;
+      const date = document.getElementById("effectiveDate").value;
+      const juris = document.getElementById("jurisdiction").value;
+
+      const output = `
+---------------------------------------------------
+AMPAM POWER OF ATTORNEY (POA) SUMMARY
+---------------------------------------------------
+Principal (Grantor): ${principal}
+Attorney-in-Fact (Grantee): ${attorney}
+
+Powers Granted:
+${powers}
+
+Jurisdiction: ${juris}
+Effective Date: ${date}
+
+This Power of Attorney is established under the private treaty and ecclesiastical authority of AMPAM,
+granting full authority to the named attorney-in-fact to act lawfully on behalf of the principal
+in all stated matters and capacities.
+---------------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

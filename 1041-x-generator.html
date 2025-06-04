@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1041-X Amended Return Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fdf6ec; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; margin-bottom: 0.5em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.5em; font-size: 1em; width: 100%; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>1041-X Amended Return Generator</h1>
+  <div class="field">
+    <label for="trustName">Trust or Estate Name</label>
+    <input type="text" id="trustName">
+  </div>
+  <div class="field">
+    <label for="ein">EIN</label>
+    <input type="text" id="ein">
+  </div>
+  <div class="field">
+    <label for="taxYear">Tax Year Being Amended</label>
+    <input type="text" id="taxYear">
+  </div>
+  <div class="field">
+    <label for="reason">Reason for Amendment</label>
+    <textarea id="reason" rows="4"></textarea>
+  </div>
+  <button onclick="generate1041X()">Generate 1041-X</button>
+  <div id="output"></div>
+
+  <script>
+    function generate1041X() {
+      const trustName = document.getElementById("trustName").value;
+      const ein = document.getElementById("ein").value;
+      const taxYear = document.getElementById("taxYear").value;
+      const reason = document.getElementById("reason").value;
+
+      const output = `
+------------------------------------------
+IRS FORM 1041-X (Amended Return)
+------------------------------------------
+Trust or Estate: ${trustName}
+EIN: ${ein}
+Tax Year Amended: ${taxYear}
+
+Reason for Amendment:
+${reason}
+
+NOTE: Attach all supporting documentation.
+------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

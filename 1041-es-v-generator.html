@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1041-ES and 1041-V Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #eef; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; margin-bottom: 0.5em; }
+    input, button { margin-top: 0.5em; padding: 0.5em; font-size: 1em; width: 100%; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>1041-ES & 1041-V Generator</h1>
+  <div class="field">
+    <label for="trustName">Trust or Estate Name</label>
+    <input type="text" id="trustName">
+  </div>
+  <div class="field">
+    <label for="ein">Trust EIN</label>
+    <input type="text" id="ein">
+  </div>
+  <div class="field">
+    <label for="amount">Estimated Payment Amount ($)</label>
+    <input type="number" id="amount">
+  </div>
+  <button onclick="generateForms()">Generate 1041-ES & 1041-V</button>
+  <div id="output"></div>
+
+  <script>
+    function generateForms() {
+      const trustName = document.getElementById("trustName").value;
+      const ein = document.getElementById("ein").value;
+      const amount = document.getElementById("amount").value;
+
+      const output = `
+------------------------------------------
+IRS FORM 1041-ES (Estimated Fiduciary Tax)
+------------------------------------------
+Trust or Estate: ${trustName}
+EIN: ${ein}
+Estimated Payment: $${amount}
+
+------------------------------------------
+IRS FORM 1041-V (Payment Voucher)
+------------------------------------------
+Use this form if mailing a check or money order
+Pay to: United States Treasury
+Amount: $${amount}
+Include: ${trustName} | EIN: ${ein}
+------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

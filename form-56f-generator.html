@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IRS Form 56-F Generator (Fiduciary Relationship of Financial Institution)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff8f0; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.5em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>IRS Form 56-F Generator – Financial Institution Fiduciary Relationship</h1>
+  <div class="field">
+    <label for="institutionName">Institution/Fiduciary Name</label>
+    <input type="text" id="institutionName">
+  </div>
+  <div class="field">
+    <label for="address">Fiduciary Address</label>
+    <input type="text" id="address">
+  </div>
+  <div class="field">
+    <label for="entityName">Trust/Estate/Principal Name</label>
+    <input type="text" id="entityName">
+  </div>
+  <div class="field">
+    <label for="entityEIN">EIN/SSN</label>
+    <input type="text" id="entityEIN">
+  </div>
+  <div class="field">
+    <label for="relationship">Type of Relationship</label>
+    <textarea id="relationship" rows="3" placeholder="e.g., Depository, Trustee over Account..."></textarea>
+  </div>
+  <div class="field">
+    <label for="startDate">Relationship Start Date</label>
+    <input type="text" id="startDate" placeholder="MM/DD/YYYY">
+  </div>
+  <button onclick="generate56F()">Generate Form 56-F Summary</button>
+  <div id="output"></div>
+
+  <script>
+    function generate56F() {
+      const inst = document.getElementById("institutionName").value;
+      const addr = document.getElementById("address").value;
+      const name = document.getElementById("entityName").value;
+      const ein = document.getElementById("entityEIN").value;
+      const rel = document.getElementById("relationship").value;
+      const date = document.getElementById("startDate").value;
+
+      const output = `
+---------------------------------------------------
+IRS FORM 56-F – FINANCIAL INSTITUTION FIDUCIARY RELATIONSHIP SUMMARY
+---------------------------------------------------
+Institution: ${inst}
+Address: ${addr}
+
+Principal/Entity: ${name}
+EIN/SSN: ${ein}
+
+Fiduciary Relationship: ${rel}
+Effective Date: ${date}
+
+Submit IRS Form 56-F if acting in fiduciary capacity as a financial institution.
+---------------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

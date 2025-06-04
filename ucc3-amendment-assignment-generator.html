@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UCC-3 Amendment / Assignment Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fffaf0; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.5em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>UCC-3 Amendment / Assignment Generator</h1>
+  <div class="field">
+    <label for="fileNumber">Original Filing Number</label>
+    <input type="text" id="fileNumber">
+  </div>
+  <div class="field">
+    <label for="amendType">Type of Amendment</label>
+    <input type="text" id="amendType" placeholder="e.g., Assignment, Continuation, Termination">
+  </div>
+  <div class="field">
+    <label for="newParty">New Secured Party or Assignee (if applicable)</label>
+    <input type="text" id="newParty">
+  </div>
+  <div class="field">
+    <label for="newAddress">New Address (if applicable)</label>
+    <input type="text" id="newAddress">
+  </div>
+  <div class="field">
+    <label for="amendmentDetails">Details of Amendment</label>
+    <textarea id="amendmentDetails" rows="4"></textarea>
+  </div>
+  <button onclick="generateUCC3()">Generate UCC-3</button>
+  <div id="output"></div>
+
+  <script>
+    function generateUCC3() {
+      const fileNumber = document.getElementById("fileNumber").value;
+      const amendType = document.getElementById("amendType").value;
+      const newParty = document.getElementById("newParty").value;
+      const newAddress = document.getElementById("newAddress").value;
+      const details = document.getElementById("amendmentDetails").value;
+
+      const output = `
+---------------------------------------------------
+UCC-3 AMENDMENT / ASSIGNMENT STATEMENT
+---------------------------------------------------
+Original Filing Number: ${fileNumber}
+Amendment Type: ${amendType}
+
+New Secured Party or Assignee (if any): ${newParty}
+New Address (if any): ${newAddress}
+
+Amendment Details:
+${details}
+
+File with the Secretary of State where original UCC-1 was filed.
+---------------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>

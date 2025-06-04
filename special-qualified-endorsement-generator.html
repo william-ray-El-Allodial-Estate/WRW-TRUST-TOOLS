@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Special & Qualified Endorsement Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fdf6e3; padding: 2em; color: #333; }
+    h1 { font-size: 1.8em; }
+    input, textarea, button { margin-top: 0.5em; padding: 0.5em; width: 100%; font-size: 1em; }
+    .field { margin-bottom: 1em; }
+    #output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Special & Qualified Endorsement Generator</h1>
+  <div class="field">
+    <label for="instrumentName">Instrument Name (e.g., BOE, Check, Bond)</label>
+    <input type="text" id="instrumentName">
+  </div>
+  <div class="field">
+    <label for="endorserName">Endorser's Name</label>
+    <input type="text" id="endorserName">
+  </div>
+  <div class="field">
+    <label for="capacity">Capacity (e.g., Executor, Trustee)</label>
+    <input type="text" id="capacity">
+  </div>
+  <div class="field">
+    <label for="instructions">Special/Qualified Endorsement Instructions</label>
+    <textarea id="instructions" rows="4" placeholder="e.g., Without Recourse, For Deposit Only, As Trustee..."></textarea>
+  </div>
+  <button onclick="generateEndorsement()">Generate Endorsement</button>
+  <div id="output"></div>
+
+  <script>
+    function generateEndorsement() {
+      const instrument = document.getElementById("instrumentName").value;
+      const name = document.getElementById("endorserName").value;
+      const capacity = document.getElementById("capacity").value;
+      const instructions = document.getElementById("instructions").value;
+
+      const output = `
+---------------------------------------------------
+SPECIAL & QUALIFIED ENDORSEMENT
+---------------------------------------------------
+Instrument: ${instrument}
+
+ENDORSED AS FOLLOWS:
+
+Pay to the order of:
+[ _________________________________ ]
+${instructions}
+
+Signed:
+${name}, ${capacity}
+
+Date: _____________
+
+(Seal or thumbprint may be affixed here)
+---------------------------------------------------
+      `;
+      document.getElementById("output").textContent = output;
+    }
+  </script>
+</body>
+</html>
