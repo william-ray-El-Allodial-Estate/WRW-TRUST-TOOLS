@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR + LEI Authenticator Stamp Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2em; background: #f0f0f0; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; }
+    canvas { margin-top: 1em; display: block; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🔒 QR + LEI Authenticator Stamp Generator</h1>
+  <form id="qrForm">
+    <label>Entity Name / Trust</label>
+    <input type="text" id="entity" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>LEI (Legal Entity Identifier)</label>
+    <input type="text" id="lei" placeholder="984500FFAO6C10CD8768">
+
+    <label>Optional Metadata or Verification URL</label>
+    <textarea id="metadata" placeholder="https://william-ray-el-allodial-estate.github.io/WRW-Trust-Public/WRW-BOE-2025-001.html"></textarea>
+
+    <button class="btn" type="submit">🔗 Generate QR Stamp</button>
+  </form>
+
+  <canvas id="qrCanvas"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script>
+    document.getElementById('qrForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const entity = document.getElementById('entity').value;
+      const lei = document.getElementById('lei').value;
+      const metadata = document.getElementById('metadata').value;
+      const qrData = `ENTITY: ${entity}\nLEI: ${lei}\nVERIFICATION: ${metadata}`;
+
+      const qr = new QRious({
+        element: document.getElementById('qrCanvas'),
+        value: qrData,
+        size: 240,
+        level: 'H'
+      });
+    });
+  </script>
+</body>
+</html>
