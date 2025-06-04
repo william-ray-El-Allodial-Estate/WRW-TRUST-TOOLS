@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrative Lien & Affidavit Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 2em; }
+    input, textarea, select { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; padding: 1em; border: 1px solid #ccc; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>⚖️ Administrative Lien & Affidavit Generator</h1>
+  <form id="lienForm">
+    <label>Claimant / Trust Name</label>
+    <input type="text" id="claimant" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Respondent / Debtor Name</label>
+    <input type="text" id="debtor" placeholder="WAYNE COUNTY / OFFICER BLAKE NAVARRE">
+
+    <label>Claim Amount (USD)</label>
+    <input type="number" id="amount" placeholder="25000000">
+
+    <label>Cause of Action / Breach</label>
+    <textarea id="cause" placeholder="Unlawful seizure of trust property, breach of fiduciary duty, injury, fraud..."></textarea>
+
+    <label>Remedy Location / Jurisdiction</label>
+    <input type="text" id="jurisdiction" placeholder="Allodium Moroccan Praedium Ante Michigan (AMPAM) / Treaty / UCC / Title 42">
+
+    <button class="btn" type="submit">📄 Generate Lien + Affidavit</button>
+  </form>
+
+  <div class="output" id="lienOutput"></div>
+
+  <script>
+    document.getElementById('lienForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const claimant = document.getElementById('claimant').value;
+      const debtor = document.getElementById('debtor').value;
+      const amount = parseFloat(document.getElementById('amount').value).toLocaleString();
+      const cause = document.getElementById('cause').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+
+      const text = `
+--- ADMINISTRATIVE LIEN NOTICE ---
+Claimant: ${claimant}
+Respondent/Debtor: ${debtor}
+Claim Amount: $${amount}
+
+Cause:
+${cause}
+
+Jurisdiction of Remedy:
+${jurisdiction}
+
+NOTICE: This administrative lien is hereby perfected and made a matter of public record. Respondent is granted ten (10) days from receipt to rebut or cure said claim. Failure to respond constitutes default and estoppel, at which point commercial remedy and enforcement proceed by right and by law.
+
+--- AFFIDAVIT OF FACT ---
+I, the undersigned authorized agent of the above-named Claimant, do affirm under penalty of perjury under applicable law that the foregoing is true, correct, and executed without intent to mislead or cause harm.
+
+Signed: ________________________
+Date: __________________________
+Seal: __________________________
+      `;
+
+      document.getElementById('lienOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
