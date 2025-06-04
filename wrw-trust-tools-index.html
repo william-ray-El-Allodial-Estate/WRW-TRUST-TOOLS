@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WRW-TRUST-TOOLS</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f9f9f9; padding: 2em; }
+    h1 { text-align: center; font-size: 2.5em; margin-bottom: 0.2em; }
+    h2 { text-align: center; font-style: italic; color: #444; margin-bottom: 1em; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1em; max-width: 1000px; margin: auto; }
+    .tool { background: #000; color: white; padding: 1em; border-radius: 10px; text-align: center; text-decoration: none; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .tool:hover { background: #333; }
+    #toolSearch { width: 100%; padding: 10px; font-size: 1em; margin: 20px 0; border: 1px solid #ccc; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>WRW-TRUST-TOOLS</h1>
+  <h2>Full Sovereign Instrument & Remedy Suite</h2>
+
+  <input type="text" id="toolSearch" placeholder="Search tools..." onkeyup="filterTools()">
+
+  <div class="grid" id="toolList">
+    
+<a class="tool" href="sf-1034-generator.html">SF-1034 Generator – Public Voucher</a>
+<a class="tool" href="sf-1038-generator.html">SF-1038 Generator – Advance of Funds</a>
+<a class="tool" href="sf-1047-generator.html">SF-1047 Generator – Voucher for Refunds</a>
+<a class="tool" href="sf-1455-generator.html">SF-1455 Generator – Unpaid Compensation</a>
+<a class="tool" href="sf-1522-generator.html">SF-1522 Generator – Death Benefits</a>
+<a class="tool" href="sf-273-generator.html">SF-273 Generator – Reinsurance Agreement</a>
+<a class="tool" href="sf-274-generator.html">SF-274 Generator – Bid Bond</a>
+<a class="tool" href="sf-275-generator.html">SF-275 Generator – Surety Bond</a>
+
+  </div>
+
+  <script>
+    function filterTools() {
+      const input = document.getElementById("toolSearch").value.toLowerCase();
+      const tools = document.querySelectorAll(".tool");
+      tools.forEach(tool => {
+        const text = tool.textContent.toLowerCase();
+        tool.style.display = text.includes(input) ? "inline-block" : "none";
+      });
+    }
+  </script>
+</body>
+</html>
