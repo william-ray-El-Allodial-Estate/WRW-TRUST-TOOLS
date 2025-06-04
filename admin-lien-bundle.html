@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrative Lien Bundle Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f6f6f6; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>⚖️ Administrative Lien Bundle Generator</h1>
+  <form id="bundleForm">
+    <label>Case or Claim Reference</label>
+    <input type="text" id="caseRef" placeholder="WRW-LIEN-2025-003">
+
+    <label>Debtor Entity / Officer Name</label>
+    <input type="text" id="debtor" placeholder="Blake Navarre / Wayne County Treasurer">
+
+    <label>Debtor EIN (if known)</label>
+    <input type="text" id="ein" placeholder="38-6004895">
+
+    <label>Claim Amount (USD)</label>
+    <input type="number" id="amount" placeholder="3100000">
+
+    <label>Basis / Cause of Action</label>
+    <textarea id="cause" placeholder="Trespass, breach of fiduciary duty, seizure of trust estate, unrebutted affidavits..."></textarea>
+
+    <label>Jurisdiction & Filing Venue</label>
+    <input type="text" id="jurisdiction" placeholder="AMPAM / UCC / Title 42 / Vienna Convention">
+
+    <button class="btn" type="submit">📑 Generate Lien Bundle Summary</button>
+  </form>
+
+  <div class="output" id="bundleOutput"></div>
+
+  <script>
+    document.getElementById('bundleForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const ref = document.getElementById('caseRef').value;
+      const debtor = document.getElementById('debtor').value;
+      const ein = document.getElementById('ein').value;
+      const amount = parseFloat(document.getElementById('amount').value).toLocaleString();
+      const cause = document.getElementById('cause').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+
+      const text = `
+--- ADMINISTRATIVE LIEN FILING BUNDLE ---
+
+Lien ID: ${ref}
+Debtor: ${debtor}
+EIN: ${ein}
+Claim Amount: $${amount}
+
+Cause / Basis:
+${cause}
+
+Jurisdiction of Remedy:
+${jurisdiction}
+
+📎 Attach the Following to Complete Filing:
+- Affidavit of Fact & Non-Response
+- Fee Schedule & Schedule A Summary
+- Notice of Fault / Default
+- UCC-1 (Optional) + UCC-3 (Continuation or Amendment)
+- Notary Certificate of Mailing or Certificate of Service
+- Copy to IRS (Form 3949-A or 13909 if needed)
+
+Filed by:
+Authorized Fiduciary / Executor of the Trust Estate
+Record Date: ________________________
+      `;
+
+      document.getElementById('bundleOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
