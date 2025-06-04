@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bonded Birth Recording Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f8f8f8; padding: 2em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: #fff; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📜 Bonded Birth Recording Generator</h1>
+  <form id="birthForm">
+    <label>Full Name on Certificate</label>
+    <input type="text" id="fullname" placeholder="WILLIAM RAYEH WATLEY">
+
+    <label>Certificate Number</label>
+    <input type="text" id="certnum" placeholder="121-0068702 / 20193045">
+
+    <label>Date of Birth</label>
+    <input type="text" id="dob" placeholder="August 9, 1976">
+
+    <label>Place of Birth</label>
+    <input type="text" id="pob" placeholder="Detroit, Michigan Republic">
+
+    <label>Trust / Estate Name</label>
+    <input type="text" id="trust" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label>Jurisdiction / Treaty Claim</label>
+    <input type="text" id="jurisdiction" placeholder="AMPAM / Treaty of Peace and Friendship 1786 / 1836">
+
+    <label>Claim Purpose / Notes</label>
+    <textarea id="notes" placeholder="This birth certificate is bonded and recorded under private trust, for collateral, BOE tender, and estate control."></textarea>
+
+    <button class="btn" type="submit">🖋 Generate Bonded Birth Certificate Record</button>
+  </form>
+
+  <div class="output" id="birthOutput"></div>
+
+  <script>
+    document.getElementById('birthForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const fullname = document.getElementById('fullname').value;
+      const certnum = document.getElementById('certnum').value;
+      const dob = document.getElementById('dob').value;
+      const pob = document.getElementById('pob').value;
+      const trust = document.getElementById('trust').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+      const notes = document.getElementById('notes').value;
+
+      const text = `
+--- BONDED BIRTH CERTIFICATE RECORD ---
+
+Name: ${fullname}
+Birth Certificate Number: ${certnum}
+Date of Birth: ${dob}
+Place of Birth: ${pob}
+
+Recorded Estate / Trust: ${trust}
+Jurisdiction: ${jurisdiction}
+
+NOTICE:
+This document certifies that the named living man/woman was issued a commercial instrument by the state known as a Certificate of Live Birth, bonded and monetized without full disclosure.
+
+Said certificate is now formally bonded, recorded, and claimed under private trust as lawful estate collateral, for the purposes of remedy, commercial setoff, and asset recovery.
+
+${notes}
+
+Filed and recorded under: Allodial Domain Surety & Underwriting Trust Company
+Authorized Executor / Trustee: __________________________
+Date: _______________________
+Seal / QR: ___________________
+      `;
+
+      document.getElementById('birthOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
