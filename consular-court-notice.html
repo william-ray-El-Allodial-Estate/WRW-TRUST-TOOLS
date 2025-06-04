@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notice of Consular Court Jurisdiction – AMPAM</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f4f4f4; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🏛️ Notice of Consular Court Jurisdiction</h1>
+  <form id="noticeForm">
+    <label for="name">Declarant's Full Name</label>
+    <input type="text" id="name" placeholder="Your full declared name">
+
+    <label for="nation">Nation or Affiliation (e.g., AMPAM)</label>
+    <input type="text" id="nation" value="Allodium Moroccan Praedium Ante Michigan (AMPAM)">
+
+    <label for="court">Public Court / Case Venue (e.g., 'STATE OF MICHIGAN v. WATLEY')</label>
+    <input type="text" id="court" placeholder="Court or Case Title">
+
+    <label for="purpose">Purpose of Appearance</label>
+    <textarea id="purpose" placeholder="State reason for appearance, e.g., special appearance to challenge jurisdiction..."></textarea>
+
+    <label for="date">Date of Filing / Notice</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Notice</button>
+  </form>
+
+  <div class="output" id="noticeOutput"></div>
+
+  <script>
+    document.getElementById("noticeForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const nation = document.getElementById("nation").value;
+      const court = document.getElementById("court").value;
+      const purpose = document.getElementById("purpose").value;
+      const date = document.getElementById("date").value;
+
+      const notice = `
+==================================================
+NOTICE OF CONSULAR COURT JURISDICTION – SPECIAL APPEARANCE
+==================================================
+
+To Whom It May Concern:
+
+Be it known that I, ${name}, a private national and living beneficiary under the sovereign authority of
+${nation}, do hereby enter Special Appearance in the matter of:
+
+Case/Court: ${court}
+
+This appearance is entered exclusively for the purpose of asserting treaty rights, jurisdictional standing,
+and consular protections under international law, including but not limited to:
+
+— The Treaty of Peace and Friendship 1786/1836
+— The Vienna Convention on Consular Relations (1963)
+— Private Treaty Law governing ${nation}
+
+Purpose of Appearance:
+${purpose}
+
+This Notice serves to rebut any presumption of corporate citizenship, agency, or commercial suretyship,
+and places all parties on notice that jurisdictional objections are hereby raised and preserved.
+
+Issued this day, ${date}, under seal of consular protection by the declarant.
+
+Respectfully Submitted,
+${name}
+Treaty National of ${nation}
+      `;
+
+      document.getElementById("noticeOutput").textContent = notice;
+    });
+  </script>
+</body>
+</html>

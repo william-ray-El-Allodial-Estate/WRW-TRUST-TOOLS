@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bonded Birth Record Generator – AMPAM</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #fefefe; color: #111; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🍼 Bonded Birth Record Generator</h1>
+  <form id="birthForm">
+    <label for="childName">Newborn Name</label>
+    <input type="text" id="childName" placeholder="Full Name of the Newborn">
+
+    <label for="dob">Date of Birth</label>
+    <input type="text" id="dob" placeholder="MM/DD/YYYY">
+
+    <label for="place">Place of Birth (City, Region, Nation)</label>
+    <input type="text" id="place" placeholder="City, Region, Nation">
+
+    <label for="mother">Mother’s Full Name</label>
+    <input type="text" id="mother" placeholder="Mother's Full Legal or Declared Name">
+
+    <label for="father">Father’s Full Name</label>
+    <input type="text" id="father" placeholder="Father's Full Legal or Declared Name">
+
+    <label for="notes">Optional Notes or Bond Language</label>
+    <textarea id="notes" placeholder="Include any relevant sovereign clauses or bonded statements..."></textarea>
+
+    <button type="submit">Generate Record</button>
+  </form>
+
+  <div class="output" id="birthOutput"></div>
+
+  <script>
+    document.getElementById("birthForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const child = document.getElementById("childName").value;
+      const dob = document.getElementById("dob").value;
+      const place = document.getElementById("place").value;
+      const mother = document.getElementById("mother").value;
+      const father = document.getElementById("father").value;
+      const notes = document.getElementById("notes").value;
+
+      const output = `
+=======================================================
+SOVEREIGN BONDED BIRTH RECORD – AMPAM REGISTRATION COPY
+=======================================================
+
+Name of Living Newborn: ${child}
+Date of Birth: ${dob}
+Place of Birth: ${place}
+
+Mother: ${mother}
+Father: ${father}
+
+====================================
+BONDED DECLARATION OF SOVEREIGN BIRTH
+====================================
+The above-referenced newborn is hereby registered as a living heir of Allodium Moroccan Praedium Ante Michigan (AMPAM),
+protected by the Sovereign Treaty of Blood and Soil, under private jurisdiction.
+
+This record shall be sealed by two living witnesses present to the emergence:
+
+Witness 1: Seya Raha
+Witness 2: Dullah
+
+This record is hereby recognized as a bonded and living declaration of birth,
+constituting a private record of estate origin.
+
+Optional Notes:
+${notes}
+
+Signed & sealed this day under sovereign status by the living declarant(s).
+      `;
+      document.getElementById("birthOutput").textContent = output;
+    });
+  </script>
+</body>
+</html>

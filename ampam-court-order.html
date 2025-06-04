@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AMPAM Consular Court Order Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f4f4f4; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>⚖️ AMPAM Consular Court Order Generator</h1>
+  <form id="orderForm">
+    <label for="caseName">Case / Subject Title</label>
+    <input type="text" id="caseName" placeholder="E.g., Injunction Regarding Trust Property Seizure">
+
+    <label for="petitioner">Petitioner / Sovereign Name</label>
+    <input type="text" id="petitioner" placeholder="Name of sovereign national or trust">
+
+    <label for="respondents">Respondents</label>
+    <textarea id="respondents" placeholder="Name each party being ordered, e.g., Wayne County Circuit Court, Blake Navarre..."></textarea>
+
+    <label for="findings">Findings / Determinations</label>
+    <textarea id="findings" placeholder="Summarize facts, violations, or sovereign findings that justify order..."></textarea>
+
+    <label for="relief">Order / Relief Demanded</label>
+    <textarea id="relief" placeholder="E.g., Cease and desist, restitution, removal of record, etc..."></textarea>
+
+    <label for="date">Date of Order</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Court Order</button>
+  </form>
+
+  <div class="output" id="orderOutput"></div>
+
+  <script>
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const caseName = document.getElementById("caseName").value;
+      const petitioner = document.getElementById("petitioner").value;
+      const respondents = document.getElementById("respondents").value;
+      const findings = document.getElementById("findings").value;
+      const relief = document.getElementById("relief").value;
+      const date = document.getElementById("date").value;
+
+      const order = `
+==============================================
+AMPAM CONSULAR COURT ORDER
+Allodium Moroccan Praedium Ante Michigan (AMPAM)
+==============================================
+
+Case Title:
+${caseName}
+
+Petitioner:
+${petitioner}
+
+Respondent(s):
+${respondents}
+
+Findings:
+${findings}
+
+ORDERED RELIEF:
+${relief}
+
+This order is issued under the sovereign authority of the Consular Court of AMPAM,
+recognized under international treaty, and binding upon all foreign actors operating within said jurisdiction.
+
+Issued this ${date}, under seal and private jurisdiction.
+
+By Order of the Consular Court,
+AMPAM Ministry of Foreign Affairs & Sovereign Tribunal
+      `;
+
+      document.getElementById("orderOutput").textContent = order;
+    });
+  </script>
+</body>
+</html>

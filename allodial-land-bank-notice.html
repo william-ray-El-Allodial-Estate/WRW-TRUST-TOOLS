@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Allodial Domain Land Bank Treaty Notice Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f5f5f5; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🏛 Allodial Domain Land Bank Treaty Notice Generator</h1>
+  <form id="landBankForm">
+    <label for="property">Property Description (or Parcel ID)</label>
+    <input type="text" id="property" placeholder="e.g., 18409 Sunset, Detroit, MI / Parcel ID #13019832">
+
+    <label for="claimant">Claimant Name / Trust</label>
+    <input type="text" id="claimant" placeholder="e.g., WILLIAM RAYEH WATLEY TRUST">
+
+    <label for="jurisdiction">Jurisdiction / Treaty Reference</label>
+    <input type="text" id="jurisdiction" placeholder="e.g., AMPAM / Treaty of Peace & Friendship 1786/1836">
+
+    <label for="recipient">Recipient Office / Entity</label>
+    <input type="text" id="recipient" placeholder="e.g., Wayne County Treasurer / Detroit Land Bank Authority">
+
+    <label for="reason">Basis of Claim / Notice</label>
+    <textarea id="reason" placeholder="e.g., Reclaiming trust property held under fraudulent foreclosure..."></textarea>
+
+    <label for="date">Date of Notice</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Treaty Notice</button>
+  </form>
+
+  <div class="output" id="noticeOutput"></div>
+
+  <script>
+    document.getElementById("landBankForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const property = document.getElementById("property").value;
+      const claimant = document.getElementById("claimant").value;
+      const jurisdiction = document.getElementById("jurisdiction").value;
+      const recipient = document.getElementById("recipient").value;
+      const reason = document.getElementById("reason").value;
+      const date = document.getElementById("date").value;
+
+      const notice = `
+===========================================================
+ALLODIAL DOMAIN LAND BANK – TREATY-BACKED NOTICE
+===========================================================
+
+DATE: ${date}
+TO: ${recipient}
+
+This notice is issued by: ${claimant}
+Regarding property: ${property}
+
+JURISDICTION: ${jurisdiction}
+
+NOTICE:
+${reason}
+
+Pursuant to treaty protections and indigenous trust rights under AMPAM and related covenants, this serves as formal notification of land interest claim and property recovery under sovereign jurisdiction.
+
+No further encumbrance or administrative act shall be taken without violating commercial and fiduciary trust principles.
+
+Respectfully submitted,
+${claimant}
+AMPAM Land Bank Notice Authority
+      `;
+
+      document.getElementById("noticeOutput").textContent = notice;
+    });
+  </script>
+</body>
+</html>

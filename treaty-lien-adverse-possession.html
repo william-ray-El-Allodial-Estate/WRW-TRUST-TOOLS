@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Treaty-Backed Lien & Adverse Possession Notice Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #fdfdfd; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #000; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📜 Treaty-Backed Lien & Adverse Possession Notice Generator</h1>
+  <form id="lienForm">
+    <label for="claimant">Claimant / Trust Name</label>
+    <input type="text" id="claimant" placeholder="e.g., WILLIAM RAYEH WATLEY TRUST">
+
+    <label for="property">Property / Asset Description</label>
+    <input type="text" id="property" placeholder="e.g., 4079 Fullerton, Detroit MI – Parcel ID: 140001234">
+
+    <label for="respondent">Respondent Entity / Debtor</label>
+    <input type="text" id="respondent" placeholder="e.g., Wayne County Treasurer / Blake Navarre">
+
+    <label for="basis">Basis of Lien / Possession</label>
+    <textarea id="basis" placeholder="e.g., Unlawful foreclosure, abandonment by public trust, reconveyed via counter-deed..."></textarea>
+
+    <label for="value">Secured Claim Amount</label>
+    <input type="text" id="value" placeholder="$25,000,000.00">
+
+    <label for="treaty">Treaty / Jurisdiction</label>
+    <input type="text" id="treaty" placeholder="e.g., Treaty of Peace & Friendship 1786/1836 – Vienna Convention – AMPAM">
+
+    <label for="date">Date</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Notice</button>
+  </form>
+
+  <div class="output" id="lienOutput"></div>
+
+  <script>
+    document.getElementById("lienForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const claimant = document.getElementById("claimant").value;
+      const property = document.getElementById("property").value;
+      const respondent = document.getElementById("respondent").value;
+      const basis = document.getElementById("basis").value;
+      const value = document.getElementById("value").value;
+      const treaty = document.getElementById("treaty").value;
+      const date = document.getElementById("date").value;
+
+      const notice = `
+============================================================
+TREATY-BACKED LIEN & ADVERSE POSSESSION NOTICE
+============================================================
+
+DATE: ${date}
+CLAIMANT: ${claimant}
+PROPERTY: ${property}
+RESPONDENT: ${respondent}
+SECURED AMOUNT: ${value}
+JURISDICTION: ${treaty}
+
+BASIS OF CLAIM:
+${basis}
+
+This notice affirms lawful lien and adverse possession rights under sovereign and treaty authority. 
+Continued possession, administration, or assertion of control by any respondent party without settlement, 
+release, or adjudicated authority constitutes further commercial injury.
+
+Notice issued in good faith and full commercial liability.
+
+Signed,
+${claimant}
+Jurisdiction: AMPAM / Sovereign Land Estate Authority
+      `;
+
+      document.getElementById("lienOutput").textContent = notice;
+    });
+  </script>
+</body>
+</html>

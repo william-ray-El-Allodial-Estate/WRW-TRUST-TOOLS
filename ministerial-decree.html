@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ministerial Decree Generator – AMPAM Foreign Affairs</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #fefefe; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📜 Ministerial Decree Generator</h1>
+  <form id="decreeForm">
+    <label for="decreeTitle">Decree Title / Reference</label>
+    <input type="text" id="decreeTitle" placeholder="e.g., Decree on Trust Recognition and Territorial Boundaries">
+
+    <label for="minister">Minister Name / Title</label>
+    <input type="text" id="minister" placeholder="e.g., Minister of Foreign Affairs, AMPAM">
+
+    <label for="preamble">Preamble / Legal Basis</label>
+    <textarea id="preamble" placeholder="Describe treaties, authorities, or powers this decree is based on..."></textarea>
+
+    <label for="proclamation">Decree Proclamation</label>
+    <textarea id="proclamation" placeholder="State the main ruling or mandate..."></textarea>
+
+    <label for="date">Date of Issue</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Decree</button>
+  </form>
+
+  <div class="output" id="decreeOutput"></div>
+
+  <script>
+    document.getElementById("decreeForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("decreeTitle").value;
+      const minister = document.getElementById("minister").value;
+      const preamble = document.getElementById("preamble").value;
+      const proclamation = document.getElementById("proclamation").value;
+      const date = document.getElementById("date").value;
+
+      const decree = `
+===========================================
+MINISTERIAL DECREE
+Allodium Moroccan Praedium Ante Michigan (AMPAM)
+===========================================
+
+TITLE: ${title}
+
+BY AUTHORITY OF:
+${minister}
+
+WHEREAS:
+${preamble}
+
+NOW, THEREFORE, BE IT DECREED:
+${proclamation}
+
+Issued on this ${date}, sealed under private foreign jurisdiction.
+
+SIGNED:
+${minister}
+Ministry of Foreign Affairs – AMPAM
+      `;
+
+      document.getElementById("decreeOutput").textContent = decree;
+    });
+  </script>
+</body>
+</html>

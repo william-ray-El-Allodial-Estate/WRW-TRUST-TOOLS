@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tax Per Que Generator – AMPAM</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f8f8f8; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📜 Tax Per Que Generator</h1>
+  <form id="taxForm">
+    <label for="issuer">Issuer (e.g., AMPAM Treasury, Trust Name)</label>
+    <input type="text" id="issuer" placeholder="WILLIAM RAYEH WATLEY TRUST">
+
+    <label for="subject">Tax Subject / Account</label>
+    <input type="text" id="subject" placeholder="e.g., Property, SSN Trust, Utility Account">
+
+    <label for="amount">Amount Claimed or Assessed</label>
+    <input type="text" id="amount" placeholder="$250,000.00">
+
+    <label for="basis">Basis of Assessment</label>
+    <textarea id="basis" placeholder="Describe why the tax is due (e.g., credit recoupment, unlawful seizure, treaty violation)..."></textarea>
+
+    <label for="dueDate">Due Date</label>
+    <input type="text" id="dueDate" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Tax Per Que</button>
+  </form>
+
+  <div class="output" id="taxOutput"></div>
+
+  <script>
+    document.getElementById("taxForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const issuer = document.getElementById("issuer").value;
+      const subject = document.getElementById("subject").value;
+      const amount = document.getElementById("amount").value;
+      const basis = document.getElementById("basis").value;
+      const dueDate = document.getElementById("dueDate").value;
+
+      const tax = `
+=======================================================
+TAX PER QUE – SOVEREIGN ASSESSMENT
+=======================================================
+
+ISSUER: ${issuer}
+SUBJECT: ${subject}
+AMOUNT DUE: ${amount}
+DUE DATE: ${dueDate}
+
+ASSESSMENT BASIS:
+${basis}
+
+This Tax Per Que is issued under sovereign authority, treaty jurisdiction, and
+fiduciary duty of care in honor of indigenous rights and trust settlements.
+
+Failure to settle this assessment may result in administrative lien,
+trust offset, or collateral bond levy.
+
+Issued in good faith under authority of AMPAM Treasury.
+      `;
+
+      document.getElementById("taxOutput").textContent = tax;
+    });
+  </script>
+</body>
+</html>

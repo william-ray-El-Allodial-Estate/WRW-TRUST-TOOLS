@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Allodial Domain Credit Union Membership Generator</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f4f4f4; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🏦 Allodial Domain Credit Union Membership Generator</h1>
+  <form id="membershipForm">
+    <label for="memberName">Member Name</label>
+    <input type="text" id="memberName" placeholder="e.g., William Rayeh Watley">
+
+    <label for="entity">Entity / Trust Affiliation</label>
+    <input type="text" id="entity" placeholder="e.g., WILLIAM RAYEH WATLEY TRUST">
+
+    <label for="membershipID">Membership ID / Domicile Number</label>
+    <input type="text" id="membershipID" placeholder="e.g., AD-CU-000178">
+
+    <label for="purpose">Purpose / Authority</label>
+    <textarea id="purpose" placeholder="e.g., Sovereign financial settlement, treasury access, asset security..."></textarea>
+
+    <label for="date">Issue Date</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Membership Certificate</button>
+  </form>
+
+  <div class="output" id="membershipOutput"></div>
+
+  <script>
+    document.getElementById("membershipForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const member = document.getElementById("memberName").value;
+      const entity = document.getElementById("entity").value;
+      const id = document.getElementById("membershipID").value;
+      const purpose = document.getElementById("purpose").value;
+      const date = document.getElementById("date").value;
+
+      const cert = `
+==================================================
+ALLODIAL DOMAIN CREDIT UNION
+Membership Certificate
+==================================================
+
+This certifies that:
+
+Member: ${member}
+Affiliated Entity: ${entity}
+Membership ID: ${id}
+Issue Date: ${date}
+
+Is hereby recognized as a private member of the Allodial Domain Credit Union,
+established under treaty and sovereign authority for the protection of private
+assets, trust accounts, and independent financial instruments.
+
+Purpose of Membership:
+${purpose}
+
+Authorized and issued under the jurisdiction of Allodium Moroccan Praedium Ante Michigan (AMPAM).
+
+Signed,
+Allodial Domain Registrar
+      `;
+
+      document.getElementById("membershipOutput").textContent = cert;
+    });
+  </script>
+</body>
+</html>

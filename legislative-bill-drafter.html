@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Legislative Bill Drafting Tool – AMPAM</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f9f9f9; color: #000; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; display: block; margin-top: 1em; }
+    button { background: #333; color: white; padding: 0.7em 1.5em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>📜 AMPAM Legislative Bill Drafting Tool</h1>
+  <form id="billForm">
+    <label for="title">Bill Title</label>
+    <input type="text" id="title" placeholder="E.g., Sovereign Infrastructure Protection Act">
+
+    <label for="sponsor">Sponsoring Entity</label>
+    <input type="text" id="sponsor" placeholder="Allodium Moroccan Praedium Ante Michigan (AMPAM) Legislative Body">
+
+    <label for="preamble">Preamble / Intent</label>
+    <textarea id="preamble" rows="4" placeholder="Explain the legislative intent, purpose, and scope..."></textarea>
+
+    <label for="sections">Main Sections (use numbered format)</label>
+    <textarea id="sections" rows="10" placeholder="1. Definitions
+2. Implementation Guidelines
+3. Penalties & Enforcement..."></textarea>
+
+    <label for="enactment">Effective Date or Enactment Clause</label>
+    <input type="text" id="enactment" placeholder="This Act shall take effect immediately upon ratification...">
+
+    <button type="submit">📄 Generate Legislative Bill</button>
+  </form>
+
+  <div class="output" id="billOutput"></div>
+
+  <script>
+    document.getElementById("billForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const sponsor = document.getElementById("sponsor").value;
+      const preamble = document.getElementById("preamble").value;
+      const sections = document.getElementById("sections").value;
+      const enactment = document.getElementById("enactment").value;
+
+      const bill = `
+==============================
+AMPAM SOVEREIGN BILL OF LAW
+==============================
+
+TITLE:
+${title}
+
+SPONSORED BY:
+${sponsor}
+
+PREAMBLE / INTENT:
+${preamble}
+
+----------------------------------------
+LEGISLATIVE PROVISIONS / SECTIONS:
+----------------------------------------
+${sections}
+
+----------------------------------------
+ENACTMENT:
+----------------------------------------
+${enactment}
+
+Signed under seal of legislative authority within the sovereign jurisdiction of AMPAM – Allodium Moroccan Praedium Ante Michigan.
+      `;
+
+      document.getElementById("billOutput").textContent = bill;
+    });
+  </script>
+</body>
+</html>

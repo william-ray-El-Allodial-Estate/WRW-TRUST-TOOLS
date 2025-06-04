@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sovereign Postal Mailing Generator – AMPAM</title>
+  <style>
+    body { font-family: Georgia, serif; padding: 2em; background: #f9f9f9; color: #000; }
+    label { font-weight: bold; margin-top: 1em; display: block; }
+    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.2em; margin-bottom: 1em; }
+    button { padding: 0.7em 1.5em; background: #222; color: white; border: none; cursor: pointer; }
+    .output { background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>📮 Sovereign Postal Mailing Generator</h1>
+  <form id="postalForm">
+    <label for="sender">Sender Name / Office</label>
+    <input type="text" id="sender" placeholder="Postmaster, Trust Office, etc.">
+
+    <label for="origin">Postal Origin (Private Venue)</label>
+    <input type="text" id="origin" placeholder="e.g., c/o 5511 East 7 Mile Road #305, Detroit, Michigan (unincorporated)">
+
+    <label for="recipient">Recipient / Public Office</label>
+    <input type="text" id="recipient" placeholder="e.g., Wayne County Treasurer">
+
+    <label for="address">Recipient Address</label>
+    <input type="text" id="address" placeholder="123 Public Plaza, Detroit, MI 48226">
+
+    <label for="tracking">Tracking Number (Registered/Certified Mail)</label>
+    <input type="text" id="tracking" placeholder="e.g., RE123456789US">
+
+    <label for="mailingDate">Mailing Date</label>
+    <input type="text" id="mailingDate" placeholder="MM/DD/YYYY">
+
+    <button type="submit">Generate Postal Certificate</button>
+  </form>
+
+  <div class="output" id="postalOutput"></div>
+
+  <script>
+    document.getElementById("postalForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const sender = document.getElementById("sender").value;
+      const origin = document.getElementById("origin").value;
+      const recipient = document.getElementById("recipient").value;
+      const address = document.getElementById("address").value;
+      const tracking = document.getElementById("tracking").value;
+      const date = document.getElementById("mailingDate").value;
+
+      const cert = `
+====================================================
+SOVEREIGN POSTAL MAILING CERTIFICATE
+====================================================
+
+FROM:
+${sender}
+${origin}
+
+TO:
+${recipient}
+${address}
+
+Tracking No.: ${tracking}
+Date of Dispatch: ${date}
+
+This mailing is certified under sovereign postal venue pursuant to treaty jurisdiction,
+foreign trust law, and ecclesiastical protection under AMPAM.
+
+Witnessed, sealed, and executed on the above date by authorized Postmaster or agent.
+
+Signed:
+${sender}
+AMPAM Postal Registry
+      `;
+
+      document.getElementById("postalOutput").textContent = cert;
+    });
+  </script>
+</body>
+</html>
