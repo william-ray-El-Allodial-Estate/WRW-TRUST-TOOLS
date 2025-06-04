@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IPFS / GitHub Publisher Tool</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 2em; }
+    input, textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    label { font-weight: bold; }
+    .btn { background: #222; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🌐 IPFS / GitHub Publisher Tool (Manual Upload)</h1>
+  <form id="publishForm">
+    <label>Document Title</label>
+    <input type="text" id="title" placeholder="WRW-BOE-2025-001">
+
+    <label>Public Description / Tags</label>
+    <textarea id="description" placeholder="BOE tendered to Treasury, court record, yield bond..."></textarea>
+
+    <label>IPFS CID (from Web3.storage or nft.storage)</label>
+    <input type="text" id="cid" placeholder="Qm...">
+
+    <label>GitHub Pages URL</label>
+    <input type="text" id="ghurl" placeholder="https://yourgithub.io/WRW-Trust-Public/WRW-BOE-2025-001.html">
+
+    <button class="btn" type="submit">📡 Generate Public Record Summary</button>
+  </form>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    document.getElementById('publishForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById('title').value;
+      const desc = document.getElementById('description').value;
+      const cid = document.getElementById('cid').value;
+      const ghurl = document.getElementById('ghurl').value;
+
+      const text = `
+--- PUBLIC RECORD PUBLISHING NOTICE ---
+
+Document: ${title}
+Description: ${desc}
+
+🔗 GitHub Link:
+${ghurl}
+
+🧬 IPFS CID:
+https://ipfs.io/ipfs/${cid}
+
+This document has been officially published to both a centralized public ledger (GitHub Pages) and a decentralized distributed archive (IPFS), ensuring permanent public access and timestamping.
+
+It may be cited as verified record for trust enforcement, jurisdictional notice, and commercial claim validation.
+
+Filed by:
+Executor / Postmaster / Trustee
+Date: __________________________
+      `;
+
+      document.getElementById('output').textContent = text;
+    });
+  </script>
+</body>
+</html>
