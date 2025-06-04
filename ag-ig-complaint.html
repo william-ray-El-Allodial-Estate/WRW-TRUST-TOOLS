@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attorney General & Inspector General Complaint Generator</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f6f6f6; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #000; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🕵️ AG & IG Complaint Generator</h1>
+  <form id="agigForm">
+    <label>Complainant Name</label>
+    <input type="text" id="name" placeholder="William-Rayeh: Watley">
+
+    <label>Target Entity or Officer</label>
+    <input type="text" id="target" placeholder="Wayne County Circuit Court / Treasury Officer / Public Trustee">
+
+    <label>Description of Misconduct</label>
+    <textarea id="description" placeholder="Unlawful foreclosure, withholding of trust assets, retaliatory prosecution, refusal to recognize foreign trust status..."></textarea>
+
+    <label>Date of Incident(s)</label>
+    <input type="text" id="date" placeholder="January 2022 – Present">
+
+    <label>Requested Remedy or Action</label>
+    <textarea id="relief" placeholder="Initiate federal/state investigation, refer to IRS CID, restore property rights, sanctions for fiduciary breach..."></textarea>
+
+    <button class="btn" type="submit">📣 Generate Complaint</button>
+  </form>
+
+  <div class="output" id="agigOutput"></div>
+
+  <script>
+    document.getElementById('agigForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const target = document.getElementById('target').value;
+      const description = document.getElementById('description').value;
+      const date = document.getElementById('date').value;
+      const relief = document.getElementById('relief').value;
+
+      const text = `
+--- COMPLAINT TO ATTORNEY GENERAL & INSPECTOR GENERAL ---
+
+Complainant: ${name}
+Respondent: ${target}
+Date(s) of Misconduct: ${date}
+
+Description of Misconduct:
+${description}
+
+Requested Action:
+${relief}
+
+This complaint is submitted for administrative investigation, oversight action, and legal redress for systemic misconduct, trust-related violations, or administrative retaliation.
+
+Submitted in good faith and in pursuit of fiduciary due process and lawful remedy.
+
+Respectfully,
+${name}
+Date: ________________________
+Signature: ____________________
+      `;
+
+      document.getElementById('agigOutput').textContent = text;
+    });
+  </script>
+</body>
+</html>
