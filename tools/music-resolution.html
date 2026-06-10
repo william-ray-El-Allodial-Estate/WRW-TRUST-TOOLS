@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>M.U.S.I.C. Resolution Generator</title>
+  <style>
+    :root {
+      --music-red: #6b0000;
+      --music-deep: #1a0000;
+      --music-gold: #d4a843;
+      --music-gold-bright: #ffd24a;
+      --music-cream: #fbf5e3;
+      --music-ink: #1a1208;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Garamond", "Georgia", serif;
+      background:
+        radial-gradient(circle at top, #2a0808 0%, #0a0303 60%, #000 100%);
+      color: var(--music-cream);
+      padding: 2em;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 920px; margin: 0 auto 90px; }
+    .crest {
+      text-align: center;
+      padding: 1.4em 1em 1.6em;
+      border: 2px solid var(--music-gold);
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2a0606 0%, #4a0d0d 50%, #2a0606 100%);
+      box-shadow: 0 0 30px rgba(212,168,67,0.25), inset 0 0 30px rgba(0,0,0,0.45);
+      margin-bottom: 1.6em;
+    }
+    .crest .glyph { font-size: 2.4em; letter-spacing: 0.4em; color: var(--music-gold-bright); }
+    .crest h1 {
+      font-size: 1.8em;
+      letter-spacing: 0.08em;
+      margin: 0.3em 0 0.2em;
+      color: var(--music-gold-bright);
+      text-shadow: 0 0 12px rgba(212,168,67,0.4);
+    }
+    .crest .sub { font-size: 0.95em; color: var(--music-cream); opacity: 0.85; }
+    .crest .chain {
+      margin-top: 0.6em;
+      font-size: 0.78em;
+      letter-spacing: 0.05em;
+      color: var(--music-gold);
+      opacity: 0.85;
+    }
+    fieldset {
+      border: 1px solid var(--music-gold);
+      border-radius: 8px;
+      padding: 1em 1.2em 1.2em;
+      margin-bottom: 1.2em;
+      background: rgba(255,255,255,0.02);
+    }
+    legend {
+      color: var(--music-gold-bright);
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      padding: 0 0.5em;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 0.8em;
+      color: var(--music-gold);
+      letter-spacing: 0.04em;
+    }
+    .hint { font-weight: normal; opacity: 0.7; font-size: 0.85em; margin-left: 0.4em; color: var(--music-cream); }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.55em 0.65em;
+      margin-top: 0.3em;
+      background: #fefbf2;
+      color: var(--music-ink);
+      border: 1px solid var(--music-gold);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1em;
+    }
+    input:read-only { background: #efe7d0; color: #5a4520; }
+    textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+    select[multiple] { min-height: 180px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+    @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+    .row-actions { display: flex; gap: 0.8em; flex-wrap: wrap; margin-top: 1em; }
+    button.primary {
+      background: linear-gradient(135deg, var(--music-red), #a01010);
+      color: var(--music-gold-bright);
+      border: 1px solid var(--music-gold);
+      padding: 0.85em 1.6em;
+      font-size: 1em;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    button.primary:hover { background: linear-gradient(135deg, #a01010, var(--music-red)); }
+
+    .resolution {
+      margin-top: 2em;
+      background: var(--music-cream);
+      color: var(--music-ink);
+      padding: 2.2em 2em 2em;
+      border-radius: 6px;
+      border: 6px double var(--music-red);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      position: relative;
+      display: none;
+    }
+    .resolution.show { display: block; }
+    .res-crest {
+      text-align: center;
+      border-bottom: 2px solid var(--music-red);
+      padding-bottom: 1em;
+      margin-bottom: 1.2em;
+    }
+    .res-crest .seal { font-size: 1.6em; color: var(--music-red); letter-spacing: 0.3em; }
+    .res-crest h2 {
+      font-size: 1.4em;
+      margin: 0.3em 0 0.1em;
+      color: var(--music-red);
+      letter-spacing: 0.1em;
+    }
+    .res-crest .latin { font-style: italic; font-size: 0.95em; color: #6b3a10; }
+    .res-crest .resno {
+      margin-top: 0.7em;
+      font-size: 1.05em;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      color: var(--music-ink);
+    }
+    .res-title {
+      text-align: center;
+      font-size: 1.25em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 1.2em 0 1em;
+      color: var(--music-red);
+    }
+    .res-section { margin: 1em 0; }
+    .res-section h3 {
+      font-size: 0.85em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--music-red);
+      border-bottom: 1px solid #c9a050;
+      padding-bottom: 0.2em;
+      margin: 1.4em 0 0.6em;
+    }
+    .whereas, .resolved {
+      margin: 0.6em 0 0.6em 1.4em;
+      padding-left: 0.6em;
+      border-left: 2px solid #c9a050;
+      line-height: 1.55;
+    }
+    .whereas b, .resolved b { color: var(--music-red); letter-spacing: 0.05em; }
+    .signatories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3em 1em;
+      margin: 0.6em 0 0 1em;
+    }
+    .signatories li { list-style: "★ "; padding-left: 0.3em; }
+    .authority-chain {
+      font-size: 0.9em;
+      font-style: italic;
+      margin: 0.6em 0 0 0.4em;
+      color: #4a3010;
+    }
+    .res-footer {
+      margin-top: 2em;
+      padding-top: 1.2em;
+      border-top: 2px solid var(--music-red);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em;
+      font-size: 0.92em;
+    }
+    .sigblock { border-top: 1px solid var(--music-ink); padding-top: 0.3em; margin-top: 2.4em; font-size: 0.85em; }
+    .res-meta {
+      margin-top: 1.4em;
+      font-size: 0.78em;
+      color: #5a4520;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+    .gazette-status {
+      display: none;
+      margin-top: 0.8em;
+      padding: 0.8em 1em;
+      border-radius: 6px;
+      font-size: 0.9em;
+      letter-spacing: 0.04em;
+    }
+    .gazette-status.ok { background: #0a3a0a; border: 1px solid #2a8a2a; color: #b6f4b6; display: block; }
+    .gazette-status.err { background: #3a0a0a; border: 1px solid #a02a2a; color: #f4b6b6; display: block; }
+    .gazette-status.work { background: #2a2a0a; border: 1px solid #aa9a2a; color: #f4eab6; display: block; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="crest">
+      <div class="glyph">☪ ✦ ☪</div>
+      <h1>MOROCCAN UNIVERSAL SUPREME IMPERIAL COUNCIL</h1>
+      <div class="sub">Resolution Generator — M.U.S.I.C. Gazette</div>
+      <div class="chain">Madrid Protocol 1880 · Treaty of Peace &amp; Friendship 1786/1836 · General Act of Algeciras 1906</div>
+    </div>
+
+    <form id="resForm">
+      <fieldset>
+        <legend>Identification</legend>
+        <div class="grid2">
+          <div>
+            <label for="resNumber">Resolution Number <span class="hint">auto</span></label>
+            <input type="text" id="resNumber" readonly>
+          </div>
+          <div>
+            <label for="effDate">Effective Date</label>
+            <input type="date" id="effDate" required>
+          </div>
+        </div>
+        <label for="resTitle">Title of Resolution</label>
+        <input type="text" id="resTitle" required
+               placeholder="A Resolution Affirming the Sovereign Standing of AMPAM under Madrid Protocol 1880">
+      </fieldset>
+
+      <fieldset>
+        <legend>Preamble — Whereas Clauses</legend>
+        <label for="whereas">One clause per line <span class="hint">(each becomes a numbered WHEREAS)</span></label>
+        <textarea id="whereas" required
+                  placeholder="The Treaty of Peace and Friendship of 1786/1836 remains the oldest unbroken treaty of the United States;
+Article 15 of the Madrid Protocol of 1880 confers consular jurisdiction upon protected entities;
+The International Court of Justice in Case No. 11 affirmed the protected status of Moroccan nationals;"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Operative Clauses — Resolved Clauses</legend>
+        <label for="resolved">One clause per line <span class="hint">(each becomes a numbered RESOLVED)</span></label>
+        <textarea id="resolved" required
+                  placeholder="That the Council affirms the sovereign standing of AMPAM under treaty law;
+That this Resolution shall be entered into the M.U.S.I.C. Gazette and transmitted to all signatory states;
+That all member institutions shall give force and effect to the operative provisions herein;"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Signatory States</legend>
+        <label for="signatories">Select all signatory states <span class="hint">(Ctrl/Cmd-click for multiple)</span></label>
+        <select id="signatories" multiple required>
+          <option value="Allodium Moroccan Praedium Ante Michigan (AMPAM)" selected>Allodium Moroccan Praedium Ante Michigan (AMPAM)</option>
+          <option value="Kingdom of Morocco">Kingdom of Morocco</option>
+          <option value="Moorish National Republic">Moorish National Republic</option>
+          <option value="Al Moroccan Empire">Al Moroccan Empire</option>
+          <option value="Washitaw de Dugdahmoundyah">Washitaw de Dugdahmoundyah</option>
+          <option value="Yamassee Tribal Nation">Yamassee Tribal Nation</option>
+          <option value="United Nuwaubian Nation of Moors">United Nuwaubian Nation of Moors</option>
+          <option value="Murakush Imperial Federation">Murakush Imperial Federation</option>
+          <option value="Sovereign Indigenous Federation">Sovereign Indigenous Federation</option>
+          <option value="Imperial Andalusian Council">Imperial Andalusian Council</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Authority Chain</legend>
+        <label for="authority">Authority Chain Statement</label>
+        <textarea id="authority">Issued under the supreme authority of the Moroccan Universal Supreme Imperial Council, drawing standing from the Treaty of Peace and Friendship 1786/1836, the Madrid Protocol 1880 (Article 15), the General Act of Algeciras 1906, the Vienna Convention on Consular Relations 1963, the UN Declaration on the Rights of Indigenous Peoples 2007, and ICJ Case No. 11 (France v. United States — Rights of Nationals of the United States in Morocco).</textarea>
+      </fieldset>
+
+      <div class="row-actions">
+        <button type="submit" class="primary">📜 Generate Resolution</button>
+        <button type="button" id="newNumber" class="primary" style="background:linear-gradient(135deg,#3a3a3a,#555);">↻ New Number</button>
+      </div>
+    </form>
+
+    <div class="resolution" id="output">
+      <div class="res-crest">
+        <div class="seal">☪ ⚜ ☪</div>
+        <h2>MOROCCAN UNIVERSAL SUPREME IMPERIAL COUNCIL</h2>
+        <div class="latin">Concilium Supremum Imperiale Universale Marocanum</div>
+        <div class="resno" id="o_resno"></div>
+      </div>
+
+      <div class="res-title" id="o_title"></div>
+
+      <div class="res-section">
+        <h3>Preamble</h3>
+        <div id="o_whereas"></div>
+      </div>
+
+      <div class="res-section">
+        <h3>Now Therefore Be It Resolved</h3>
+        <div id="o_resolved"></div>
+      </div>
+
+      <div class="res-section">
+        <h3>Signatory States</h3>
+        <ul class="signatories" id="o_signatories"></ul>
+      </div>
+
+      <div class="res-section">
+        <h3>Authority Chain</h3>
+        <div class="authority-chain" id="o_authority"></div>
+      </div>
+
+      <div class="res-footer">
+        <div>
+          <b>Effective:</b> <span id="o_eff"></span><br>
+          <b>Adopted:</b> <span id="o_adopted"></span><br>
+          <b>Hash:</b> <span id="o_hash" style="font-family:monospace;font-size:0.8em;"></span>
+        </div>
+        <div>
+          <div class="sigblock">
+            <b>Wazir Al Rais — Presiding Officer</b><br>
+            Moroccan Universal Supreme Imperial Council
+          </div>
+          <div class="sigblock">
+            <b>Secretary of State — AMPAM</b><br>
+            Custodian of the Seal
+          </div>
+        </div>
+      </div>
+
+      <div class="res-meta">
+        SEALED · WITHOUT RECOURSE · UCC 1-308 · Constructive Notice Under Madrid Protocol 1880, Art. 15
+      </div>
+    </div>
+
+    <div id="gazetteStatus" class="gazette-status"></div>
+
+  </div>
+
+  <script>
+    function nextResolutionNumber() {
+      var year = new Date().getFullYear();
+      var key = 'music_res_counter_' + year;
+      var n = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+      localStorage.setItem(key, String(n));
+      return 'MUSIC-RES-' + year + '-' + String(n).padStart(3, '0');
+    }
+    function currentResolutionNumber() {
+      var existing = document.getElementById('resNumber').value;
+      return existing || nextResolutionNumber();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('resNumber').value = nextResolutionNumber();
+      document.getElementById('effDate').valueAsDate = new Date();
+      document.getElementById('newNumber').addEventListener('click', function() {
+        document.getElementById('resNumber').value = nextResolutionNumber();
+      });
+    });
+
+    function escapeHTML(s) {
+      return String(s).replace(/[&<>"']/g, function(c) {
+        return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+      });
+    }
+
+    function splitClauses(text) {
+      return text.split(/\n+/).map(function(s) { return s.trim().replace(/[;,.]+$/, ''); }).filter(Boolean);
+    }
+
+    async function sha256Hex(str) {
+      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2,'0'); }).join('');
+    }
+
+    document.getElementById('resForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      var resNo = document.getElementById('resNumber').value;
+      var title = document.getElementById('resTitle').value.trim();
+      var effDate = document.getElementById('effDate').value;
+      var whereasList = splitClauses(document.getElementById('whereas').value);
+      var resolvedList = splitClauses(document.getElementById('resolved').value);
+      var signatories = Array.from(document.getElementById('signatories').selectedOptions).map(function(o) { return o.value; });
+      var authority = document.getElementById('authority').value.trim();
+
+      if (whereasList.length === 0 || resolvedList.length === 0 || signatories.length === 0) {
+        alert('Please supply at least one Whereas clause, one Resolved clause, and one Signatory State.');
+        return;
+      }
+
+      var ordinals = ['FIRST','SECOND','THIRD','FOURTH','FIFTH','SIXTH','SEVENTH','EIGHTH','NINTH','TENTH',
+                      'ELEVENTH','TWELFTH','THIRTEENTH','FOURTEENTH','FIFTEENTH','SIXTEENTH','SEVENTEENTH',
+                      'EIGHTEENTH','NINETEENTH','TWENTIETH'];
+
+      document.getElementById('o_resno').textContent = resNo;
+      document.getElementById('o_title').textContent = title;
+
+      var whEl = document.getElementById('o_whereas');
+      whEl.innerHTML = '';
+      whereasList.forEach(function(c) {
+        var div = document.createElement('div');
+        div.className = 'whereas';
+        div.innerHTML = '<b>WHEREAS,</b> ' + escapeHTML(c) + ';';
+        whEl.appendChild(div);
+      });
+
+      var rsEl = document.getElementById('o_resolved');
+      rsEl.innerHTML = '';
+      resolvedList.forEach(function(c, i) {
+        var div = document.createElement('div');
+        div.className = 'resolved';
+        var label = i === 0
+          ? '<b>NOW, THEREFORE, BE IT RESOLVED,</b>'
+          : '<b>BE IT FURTHER RESOLVED (' + (ordinals[i] || (i+1)+'TH') + '),</b>';
+        div.innerHTML = label + ' ' + escapeHTML(c) + ';';
+        rsEl.appendChild(div);
+      });
+
+      var sgEl = document.getElementById('o_signatories');
+      sgEl.innerHTML = '';
+      signatories.forEach(function(s) {
+        var li = document.createElement('li');
+        li.textContent = s;
+        sgEl.appendChild(li);
+      });
+
+      document.getElementById('o_authority').textContent = authority;
+      document.getElementById('o_eff').textContent = new Date(effDate + 'T00:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+      document.getElementById('o_adopted').textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+
+      var canonical = [
+        'MUSIC RESOLUTION ' + resNo,
+        'TITLE: ' + title,
+        'EFFECTIVE: ' + effDate,
+        'WHEREAS:', whereasList.join(' | '),
+        'RESOLVED:', resolvedList.join(' | '),
+        'SIGNATORIES: ' + signatories.join('; '),
+        'AUTHORITY: ' + authority
+      ].join('\n');
+      var hash = await sha256Hex(canonical);
+      document.getElementById('o_hash').textContent = hash.slice(0,32) + '…';
+
+      var out = document.getElementById('output');
+      out.classList.add('show');
+      out.dataset.resNumber = resNo;
+      out.dataset.hash = hash;
+      out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Override Submit-to-Registry to also publish to the M.U.S.I.C. Gazette
+    function hookGazettePublish() {
+      var btn = document.getElementById('ampam-submit');
+      if (!btn) { setTimeout(hookGazettePublish, 150); return; }
+      btn.textContent = '📋 Submit + Publish to Gazette';
+      var status = document.getElementById('gazetteStatus');
+      var origObserver = new MutationObserver(function() {
+        if (btn.textContent.indexOf('Registered') !== -1) {
+          publishToGazette(status);
+          origObserver.disconnect();
+        }
+      });
+      origObserver.observe(btn, { childList: true, characterData: true, subtree: true });
+    }
+
+    async function publishToGazette(status) {
+      var out = document.getElementById('output');
+      if (!out.classList.contains('show')) return;
+      status.className = 'gazette-status work';
+      status.textContent = '📰 Publishing to the M.U.S.I.C. Gazette…';
+      try {
+        var resp = await fetch('/api/register-instrument', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            data: {
+              entity_name: 'Moroccan Universal Supreme Imperial Council',
+              instrument_type: 'music_resolution_gazette',
+              document_title: 'GAZETTE: ' + out.dataset.resNumber,
+              content_text: out.innerText.substring(0, 50000),
+              hash: out.dataset.hash,
+              source: 'music_gazette_publisher',
+              source_url: window.location.href,
+              gazette: {
+                publication: 'M.U.S.I.C. Gazette',
+                resolution_number: out.dataset.resNumber,
+                published_at: new Date().toISOString()
+              }
+            }
+          })
+        });
+        if (resp.ok) {
+          status.className = 'gazette-status ok';
+          status.innerHTML = '📰 <b>Published to the M.U.S.I.C. Gazette</b> — ' + out.dataset.resNumber + ' is now of public record.';
+        } else {
+          status.className = 'gazette-status err';
+          status.textContent = '⚠️ Gazette publication failed (HTTP ' + resp.status + '). Controlled record is registered; retry Gazette publication later.';
+        }
+      } catch (err) {
+        status.className = 'gazette-status err';
+        status.textContent = '⚠️ Gazette publication error: ' + err.message;
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hookGazettePublish);
+    } else {
+      hookGazettePublish();
+    }
+  </script>
+
+  <script src="/js/tool-actions.js"></script>
+</body>
+</html>

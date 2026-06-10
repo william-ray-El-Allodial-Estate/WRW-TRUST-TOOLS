@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employer & Institution Notice Generator — AMPAM</title>
+<style>
+body { font-family: 'Times New Roman', Georgia, serif; background: #0a0a12; color: #e8e0d0; padding: 2em; max-width: 850px; margin: 0 auto; }
+h1 { color: #d4a843; font-size: 1.4em; text-align: center; letter-spacing: 3px; }
+.sub { text-align: center; color: #a07830; font-size: 0.8em; letter-spacing: 4px; margin-bottom: 24px; }
+.field { margin-bottom: 14px; }
+.field label { display: block; color: #a07830; font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+.field input, .field textarea, .field select { width: 100%; padding: 10px; background: #12121e; border: 1px solid #332211; border-radius: 6px; color: #e8e0d0; font-size: 0.95em; font-family: inherit; outline: none; }
+.field textarea { height: 80px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+button { width: 100%; padding: 14px; background: linear-gradient(135deg, #8B0000, #CC0000); color: #FFD700; border: 1px solid #d4a843; border-radius: 6px; font-size: 1em; font-weight: bold; cursor: pointer; font-family: inherit; letter-spacing: 2px; margin-top: 14px; }
+#output { margin-top: 20px; white-space: pre-wrap; background: #12121e; padding: 24px; border: 1px solid #d4a843; border-radius: 8px; line-height: 1.7; display: none; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<h1>EMPLOYER & INSTITUTION NOTICE GENERATOR</h1>
+<div class="sub">AMPAM — MADRID PROTOCOL 1880 → ADDIF REGISTRY</div>
+
+<div class="field"><label>Notice Type</label>
+<select id="noticeType" onchange="updateFields()">
+<option value="employer_w4">W-4 Exemption Notice to Employer</option>
+<option value="employer_status">Notice of Protected National Status to Employer</option>
+<option value="employer_w8ben">W-8BEN Foreign Status Notice to Employer</option>
+<option value="bank_status">Notice of Protected National Status to Bank/Financial Institution</option>
+<option value="bank_w8ben">W-8BEN Foreign Status Notice to Bank</option>
+<option value="irs_form56">Notice of Fiduciary Relationship (Form 56 Cover Letter)</option>
+<option value="state_vital">Notice to State Vital Records</option>
+<option value="dmv_status">Notice of Protected National Status to DMV</option>
+<option value="school_status">Notice of Protected National Status to School/University</option>
+<option value="landlord_status">Notice of Protected National Status to Landlord</option>
+<option value="court_status">Notice of Protected National Status to Court</option>
+<option value="law_enforcement">Notice of Treaty Protection to Law Enforcement Agency</option>
+<option value="insurance_status">Notice of Protected National Status to Insurance Company</option>
+<option value="utility_status">Notice of Protected National Status to Utility Company</option>
+<option value="creditor_cease">Cease and Desist to Creditor/Collector</option>
+<option value="custom">Custom Notice</option>
+</select></div>
+
+<div class="row">
+<div class="field"><label>Your Full Name (Proper Case)</label><input type="text" id="yourName" placeholder="watley: william-rayeh El"></div>
+<div class="field"><label>Your National ID</label><input type="text" id="nationalId" placeholder="NAT-XXXXXXX"></div>
+</div>
+<div class="row">
+<div class="field"><label>Your ADDIF ID</label><input type="text" id="addifId" placeholder="ADDIF-XXXXXXXX"></div>
+<div class="field"><label>Your Card Number</label><input type="text" id="cardNum" placeholder="CARD-XXXXXXXX"></div>
+</div>
+<div class="field"><label>Your Address</label><input type="text" id="yourAddr" placeholder="c/o Private Moroccan National, PO Box XXXXX, City, State near [ZIP]"></div>
+
+<div class="field"><label>Recipient Name (Company/Institution)</label><input type="text" id="recipName" placeholder="ABC Corporation / Chase Bank / etc."></div>
+<div class="field"><label>Recipient Title/Department</label><input type="text" id="recipTitle" placeholder="Human Resources / Legal Department / Branch Manager"></div>
+<div class="field"><label>Recipient Address</label><input type="text" id="recipAddr" placeholder="123 Main St, City, State ZIP"></div>
+
+<div id="extraFields"></div>
+
+<div class="field"><label>Additional Instructions or Details</label><textarea id="extra" placeholder="Any specific details for this notice..."></textarea></div>
+
+<button onclick="generateNotice()">GENERATE NOTICE</button>
+<div id="output"></div>
+
+<script>
+function updateFields() {
+    const t = document.getElementById('noticeType').value;
+    let html = '';
+    if (t === 'employer_w4' || t === 'employer_status' || t === 'employer_w8ben') {
+        html = '<div class="row"><div class="field"><label>Employee ID / Badge Number</label><input type="text" id="empId" placeholder="Optional"></div><div class="field"><label>Position/Title</label><input type="text" id="empTitle" placeholder="Your job title"></div></div>';
+    } else if (t === 'creditor_cease') {
+        html = '<div class="row"><div class="field"><label>Account Number in Dispute</label><input type="text" id="acctNum" placeholder="Account #"></div><div class="field"><label>Alleged Amount</label><input type="text" id="alAmount" placeholder="$0.00"></div></div>';
+    } else if (t === 'custom') {
+        html = '<div class="field"><label>Custom Notice Title</label><input type="text" id="customTitle" placeholder="Notice of..."></div>';
+    }
+    document.getElementById('extraFields').innerHTML = html;
+}
+
+function generateNotice() {
+    const type = document.getElementById('noticeType').value;
+    const name = document.getElementById('yourName').value || '[YOUR NAME]';
+    const natId = document.getElementById('nationalId').value || '[NAT-ID]';
+    const addif = document.getElementById('addifId').value || '[ADDIF-ID]';
+    const card = document.getElementById('cardNum').value || '[CARD-NUM]';
+    const addr = document.getElementById('yourAddr').value || '[YOUR ADDRESS]';
+    const rName = document.getElementById('recipName').value || '[RECIPIENT]';
+    const rTitle = document.getElementById('recipTitle').value || '[DEPARTMENT]';
+    const rAddr = document.getElementById('recipAddr').value || '[RECIPIENT ADDRESS]';
+    const extra = document.getElementById('extra').value || '';
+    const today = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+    const hash = 'SHA256-' + Date.now().toString(16).toUpperCase();
+
+    const notices = {
+        'employer_w4': `NOTICE OF EXEMPT STATUS — WITHHOLDING EXEMPTION
+
+VIA CERTIFIED MAIL AND HAND DELIVERY
+
+To: ${rName}
+${rTitle}
+${rAddr}
+
+From: ${name}
+${addr}
+
+Date: ${today}
+
+RE: Notice of Exempt Foreign Status — Withholding Exemption
+Employee: ${name}
+${document.getElementById('empId') ? 'Employee ID: ' + (document.getElementById('empId').value || 'N/A') : ''}
+${document.getElementById('empTitle') ? 'Position: ' + (document.getElementById('empTitle').value || 'N/A') : ''}
+
+COMES NOW ${name}, a Protected National of E Al Maurikanos Estados, Moor of the Americas, operating under the full authority of the Treaty of Peace and Friendship (1786/1836), the Madrid Protocol of 1880, and the General Act of Algeciras (1906).
+
+This Notice serves to inform ${rName} of the following:
+
+1. I am NOT a "U.S. citizen" as defined under 26 USC § 7701(a)(30). I am a Moroccan National operating under treaty protection.
+
+2. Pursuant to the Treaty of Peace and Friendship (1786, reaffirmed 1836), which is the supreme law of the land under Article VI of the U.S. Constitution, I am exempt from domestic income tax withholding.
+
+3. I have filed IRS Form W-8BEN certifying my foreign status and claim of treaty benefits under the Treaty of Peace and Friendship.
+
+4. I have filed IRS Form 8833 disclosing my treaty-based return position.
+
+5. I have filed IRS Form 56 establishing my fiduciary relationship over my estate.
+
+6. Continued withholding after receipt of this Notice constitutes:
+   a. Conversion of private property
+   b. Violation of treaty obligations
+   c. Interference with consular protections
+   d. Liability under 42 USC § 1983 and 18 USC § 242
+
+DEMAND: Cease all federal and state income tax withholding from my compensation immediately upon receipt of this Notice.
+
+ALTERNATIVE: If ${rName} requires documentation, I will provide copies of W-8BEN, Form 8833, Form 56, and my ADDIF Credential Card (${card}) for verification.
+
+VERIFICATION: My protected national status can be verified at the ADDIF Registry.
+National ID: ${natId}
+ADDIF ID: ${addif}
+Credential Card: ${card}
+
+This Notice is delivered in good faith and with opportunity for compliance.
+
+Failure to comply within ten (10) calendar days shall constitute willful violation with actual knowledge and shall result in claims under applicable treaty law, commercial law, and civil rights statutes.
+
+${extra ? 'ADDITIONAL: ' + extra : ''}
+
+Govern yourselves accordingly.
+
+Respectfully Submitted,
+
+________________________________
+${name}
+Protected National — E Al Maurikanos Estados
+Moor of the Americas
+Madrid Protocol 1880 → AMPAM → ADDIF Registry
+
+Instrument Hash: ${hash}
+Without Recourse — All Rights Reserved — UCC 1-308`,
+
+        'employer_status': `NOTICE OF PROTECTED NATIONAL STATUS
+
+VIA CERTIFIED MAIL AND HAND DELIVERY
+
+To: ${rName}
+${rTitle}
+${rAddr}
+
+From: ${name}
+${addr}
+
+Date: ${today}
+
+RE: Notice of Protected National Status — Treaty of Peace and Friendship 1786/1836
+
+This Notice informs ${rName} that ${name} is a Protected National of E Al Maurikanos Estados, Moor of the Americas, operating under the authority of:
+
+§ Treaty of Peace and Friendship (1786/1836) — Supreme Law, Article VI
+§ Madrid Protocol of 1880 — Consular Protection
+§ General Act of Algeciras (1906) — Triple Principle
+§ ICJ Case No. 11 — International Recognition
+§ Vienna Convention on Consular Relations (1963)
+
+IDENTIFICATION:
+National ID: ${natId}
+ADDIF ID: ${addif}
+Credential Card: ${card}
+
+STANDING:
+${name} is NOT a "U.S. citizen," "resident alien," "African American," "Black," or any other diminishing misnomer. ${name} is a Moroccan National, a jus sanguinis heir of the Moroccan Empire, operating under unbroken treaty protection that predates the United States Constitution.
+
+OBLIGATIONS OF ${rName.toUpperCase()}:
+1. Recognize and respect the treaty-protected status of this individual
+2. Not discriminate based on national origin or political identity
+3. Accommodate treaty-based exemptions where applicable
+4. Preserve this Notice in personnel/customer records
+5. Direct any legal inquiries to the AMPAM Consular Court
+
+Any adverse action taken against ${name} after receipt of this Notice may constitute:
+- Treaty violation
+- Discrimination under Title VII
+- Civil rights violation under 42 USC § 1983
+- Interference with consular relations
+
+${extra ? 'ADDITIONAL: ' + extra : ''}
+
+This Notice is delivered in good faith.
+
+Govern yourselves accordingly.
+
+________________________________
+${name}
+Protected National — E Al Maurikanos Estados
+Madrid Protocol 1880 → AMPAM → ADDIF Registry
+
+Instrument Hash: ${hash}
+Without Recourse — All Rights Reserved — UCC 1-308`,
+
+        'creditor_cease': `CEASE AND DESIST — NOTICE OF PROTECTED STATUS AND DEMAND
+
+VIA CERTIFIED MAIL
+
+To: ${rName}
+${rTitle}
+${rAddr}
+
+From: ${name}
+${addr}
+
+Date: ${today}
+
+RE: Cease and Desist — Alleged Account ${document.getElementById('acctNum') ? document.getElementById('acctNum').value || '[ACCOUNT]' : '[ACCOUNT]'}
+Alleged Amount: ${document.getElementById('alAmount') ? document.getElementById('alAmount').value || '$0.00' : '$0.00'}
+
+COMES NOW ${name}, Protected National of E Al Maurikanos Estados, Moor of the Americas.
+
+NOTICE IS HEREBY GIVEN:
+
+1. The alleged debt referenced above is DISPUTED in full.
+
+2. ${name} is a Protected National operating under the Treaty of Peace and Friendship (1786/1836), which is the supreme law of the land under Article VI of the U.S. Constitution.
+
+3. All accounts associated with ${name}'s estate are under the fiduciary administration of the Allodium Moroccan Praedium Ante Michigan (AMPAM) pursuant to IRS Form 56.
+
+4. Any and all obligations are dischargeable against the SSN estate account under the fiduciary relationship.
+
+DEMANDS:
+a. Cease and desist all collection activity immediately
+b. Provide complete validation of debt under 15 USC § 1692g
+c. Provide the original wet-ink signed agreement
+d. Provide the complete accounting showing the source of funds lent
+e. Provide proof of standing to collect
+
+NOTICE: Continued collection activity after receipt of this Notice constitutes:
+- Violation of FDCPA (15 USC § 1692)
+- Harassment of a treaty-protected national
+- Interference with fiduciary administration
+- Commercial tort
+
+Failure to validate within thirty (30) days constitutes agreement that the alleged debt is void.
+
+${extra ? 'ADDITIONAL: ' + extra : ''}
+
+Govern yourselves accordingly.
+
+________________________________
+${name}
+Protected National — E Al Maurikanos Estados
+Madrid Protocol 1880 → AMPAM → ADDIF Registry
+
+Instrument Hash: ${hash}
+Without Recourse — All Rights Reserved — UCC 1-308`
+    };
+
+    // Default for types not fully written out
+    const defaultNotice = `NOTICE OF PROTECTED NATIONAL STATUS
+
+VIA CERTIFIED MAIL
+
+To: ${rName}
+${rTitle}
+${rAddr}
+
+From: ${name}
+${addr}
+
+Date: ${today}
+
+RE: Notice of Protected National Status
+
+This Notice informs ${rName} that ${name} is a Protected National of E Al Maurikanos Estados, Moor of the Americas, operating under the Treaty of Peace and Friendship (1786/1836), Madrid Protocol 1880, and General Act of Algeciras 1906.
+
+IDENTIFICATION:
+National ID: ${natId}
+ADDIF ID: ${addif}
+Credential Card: ${card}
+
+${name} operates under treaty protection that is the supreme law of the land under Article VI of the US Constitution. Please update your records accordingly and direct any legal inquiries to the AMPAM Consular Court.
+
+${extra ? 'ADDITIONAL DETAILS: ' + extra : ''}
+
+Govern yourselves accordingly.
+
+________________________________
+${name}
+Protected National — E Al Maurikanos Estados
+Madrid Protocol 1880 → AMPAM → ADDIF Registry
+
+Instrument Hash: ${hash}
+Without Recourse — All Rights Reserved — UCC 1-308`;
+
+    document.getElementById('output').style.display = 'block';
+    document.getElementById('output').textContent = notices[type] || defaultNotice;
+}
+
+updateFields();
+</script>
+<script src="/js/tool-actions.js"></script>
+</body>
+</html>
