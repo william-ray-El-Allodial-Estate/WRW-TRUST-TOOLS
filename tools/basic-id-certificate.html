@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🪪 Basic Identification Certificate</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 2em; }
+    input, textarea { width: 100%; margin-bottom: 1em; padding: 0.5em; }
+    label { font-weight: bold; }
+    .btn { background: #333; color: white; padding: 0.6em 1.2em; border: none; cursor: pointer; }
+    .output { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>🪪 Basic Identification Certificate</h1>
+  <form id="docForm">
+    <label>Full Name</label>
+    <input type="text" id="fullname" placeholder="Name as enrolled">
+
+    <label>ADDIF Number</label>
+    <input type="text" id="addif_id" placeholder="ADDIF-XXXXXXXX">
+
+    <label>National ID</label>
+    <input type="text" id="national_id" placeholder="NAT-XXXXXXXX">
+
+    <label>Nationality</label>
+    <input type="text" id="nationality" placeholder="Moorish-American">
+
+    <label>Jurisdiction</label>
+    <input type="text" id="jurisdiction" placeholder="AMPAM Consular Court — Madrid Protocol 1880, Art. 15">
+
+    <label>Date</label>
+    <input type="text" id="date" placeholder="YYYY-MM-DD">
+
+    <label>Statement / Additional Terms (optional)</label>
+    <textarea id="statement" placeholder="Particulars for this instrument..."></textarea>
+
+    <button class="btn" type="submit">📜 Generate Basic Identification Certificate</button>
+  </form>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    document.getElementById('docForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('fullname').value;
+      const addif = document.getElementById('addif_id').value;
+      const natid = document.getElementById('national_id').value;
+      const nationality = document.getElementById('nationality').value;
+      const jurisdiction = document.getElementById('jurisdiction').value;
+      const date = document.getElementById('date').value;
+      const statement = document.getElementById('statement').value;
+
+      const text = `
+--- BASIC IDENTIFICATION CERTIFICATE ---
+
+This Certificate identifies ${name}, recorded as ${addif} (National ID ${natid}), nationality ${nationality}, as enrolled in the ADDIF Registry of Allodium Moroccan Praedium Ante Michigan.
+
+Issued under jurisdiction of:
+${jurisdiction}
+
+This basic identification instrument is presented for purposes of recognition, record-matching and access to AMPAM services.
+
+Issued: ${date}
+Issuing Authority: AMPAM — Allodium Moroccan Praedium Ante Michigan
+Chain of Authority: Madrid Protocol 1880 → Moroccan Sovereignty → AMPAM → ADDIF Registry
+
+Signed: ____________________________
+Seal:   ____________________________
+`;
+      document.getElementById('output').textContent = text;
+    });
+  </script>
+<script src="/js/tool-actions.js"></script>
+</body>
+</html>
