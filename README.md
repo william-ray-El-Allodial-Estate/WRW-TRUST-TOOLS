@@ -1,5 +1,14 @@
 # WRW-TRUST-TOOLS
 
+## What these tools are — and what they are not
+
+**The instrument predicate is the design principle of this suite.** Every information-return generator here reports on an underlying instrument that already exists. The instrument comes first; the form reports it. The tools **enforce** this: each requires the instrument identified, described, and reported first, and **refuses to generate a form when nothing is behind it.**
+
+A 1099-OID, an 8281, or a bond report with a real instrument behind it, reported first, is a form used correctly. The same form on a name and an amount with nothing behind it is a false statement — and **preventing exactly that is what these tools exist to do.** They do not create value, discharge debts, or generate refunds; a tool that refuses to produce a baseless form cannot be a scheme to file one.
+
+**Not tax or legal advice.** Preparing a form correctly is not the same as a filing being correct. Consult a licensed preparer or attorney about your own facts before filing anything.
+
+
 **Public Sovereign Trust Instrument Suite**  
 _A Project of the WILLIAM RAYEH WATLEY TRUST_  
 **Jurisdiction:** Allodium Moroccan Praedium Ante Michigan (AMPAM)  
