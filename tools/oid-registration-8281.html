@@ -38,11 +38,15 @@
     <label for="maturity">Maturity Date</label>
     <input type="text" id="maturity" placeholder="MM/DD/YYYY">
   </div>
+  <div id="ip_mount"></div>
   <button onclick="generateOID()">Generate Form 8281 Summary</button>
   <div id="output"></div>
 
+  <script src="instrument-predicate.js"></script>
   <script>
+    document.getElementById('ip_mount').innerHTML = INSTRUMENT_FIELDSET();
     function generateOID() {
+      if (!requireInstrument()) return;
       const issuer = document.getElementById("issuerName").value;
       const ein = document.getElementById("issuerEIN").value;
       const type = document.getElementById("instrumentType").value;
@@ -66,7 +70,7 @@ File this summary as part of OID registration under IRC Section 1275(d) and 6039
 Include when issuing or reissuing bonds with original issue discount.
 --------------------------------------------------------
       `;
-      document.getElementById("output").textContent = output;
+      document.getElementById("output").textContent = output + instrumentClause();
     }
   </script>
 <script src="/js/tool-actions.js"></script>

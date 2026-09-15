@@ -35,14 +35,18 @@
     <label>Description</label>
     <input type="text" id="description" placeholder="e.g. Withheld access to trust funds / Bond Yield Distribution">
 
+    <div id="ip_mount"></div>
     <button class="btn" type="submit">🧾 Generate Form Preview</button>
   </form>
 
   <div class="output" id="output"></div>
 
+  <script src="instrument-predicate.js"></script>
   <script>
+    document.getElementById('ip_mount').innerHTML = INSTRUMENT_FIELDSET();
     document.getElementById('taxForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!requireInstrument()) return;
 
       const payer = document.getElementById('payer').value;
       const recipient = document.getElementById('recipient').value;
@@ -57,7 +61,7 @@
         formType === '1096' ? 'Summary Transmittal for IRS Submission' :
         'Box 1: Income\nBox 14: Other Information');
 
-      document.getElementById('output').textContent = output;
+      document.getElementById('output').textContent = output + instrumentClause();
     });
   </script>
 <script src="/js/tool-actions.js"></script>

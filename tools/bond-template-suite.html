@@ -37,14 +37,18 @@
     <label>Governing Law / Jurisdiction</label>
     <input type="text" id="jurisdiction" placeholder="Allodium Moroccan Praedium Ante Michigan (AMPAM)">
 
+    <div id="ip_mount"></div>
     <button class="btn" type="submit">📝 Generate Bond Template</button>
   </form>
 
   <div class="output" id="bondOutput"></div>
 
+  <script src="instrument-predicate.js"></script>
   <script>
+    document.getElementById('ip_mount').innerHTML = INSTRUMENT_FIELDSET();
     document.getElementById('bondForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!requireInstrument()) return;
 
       const type = document.getElementById('bondType').value;
       const issuer = document.getElementById('issuer').value;
@@ -66,7 +70,7 @@
         template += `This International Bill of Exchange is hereby tendered to the addressee for settlement, discharge, or credit against sovereign claim under treaty law, Vienna Convention, and all applicable private commercial obligations.`;
       }
 
-      document.getElementById('bondOutput').textContent = template;
+      document.getElementById('bondOutput').textContent = template + instrumentClause();
     });
   </script>
 <script src="/js/tool-actions.js"></script>

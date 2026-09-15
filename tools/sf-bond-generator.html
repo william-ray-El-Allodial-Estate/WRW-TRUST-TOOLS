@@ -30,14 +30,18 @@
     <label>Purpose / Claim Reference</label>
     <input type="text" id="purpose" placeholder="Case #24-005770-01-FH, Trust Security & Performance">
 
+    <div id="ip_mount"></div>
     <button class="btn" type="submit">🔏 Generate Bonds</button>
   </form>
 
   <div class="output" id="bondOutput"></div>
 
+  <script src="instrument-predicate.js"></script>
   <script>
+    document.getElementById('ip_mount').innerHTML = INSTRUMENT_FIELDSET();
     document.getElementById('bondForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!requireInstrument()) return;
 
       const principal = document.getElementById('principal').value;
       const trust = document.getElementById('trust').value;
@@ -75,7 +79,7 @@ Special Use:
 – File to U.S. Treasury, GSA, and IRS
 – Include BOE and SF 28 (Affidavit of Individual Surety) if applicable`;
 
-      document.getElementById('bondOutput').textContent = output;
+      document.getElementById('bondOutput').textContent = output + instrumentClause();
     });
   </script>
 <script src="/js/tool-actions.js"></script>

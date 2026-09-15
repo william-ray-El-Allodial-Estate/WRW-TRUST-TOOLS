@@ -41,11 +41,15 @@
     <label for="amount">Amount</label>
     <input type="number" id="amount">
   </div>
+  <div id="ip_mount"></div>
   <button onclick="generate1099()">Generate 1099</button>
   <div id="output"></div>
 
+  <script src="instrument-predicate.js"></script>
   <script>
+    document.getElementById('ip_mount').innerHTML = INSTRUMENT_FIELDSET();
     function generate1099() {
+      if (!requireInstrument()) return;
       const type = document.getElementById("formType").value;
       const payer = document.getElementById("payerName").value;
       const recipient = document.getElementById("recipientName").value;
@@ -63,7 +67,7 @@ This is a draft for IRS Form 1099-${type}.
 Ensure accuracy before filing.
 ------------------------------
       `;
-      document.getElementById("output").textContent = output;
+      document.getElementById("output").textContent = output + instrumentClause();
     }
   </script>
 <script src="/js/tool-actions.js"></script>

@@ -33,14 +33,18 @@
     <label for="date">Date</label>
     <input type="text" id="date" placeholder="MM/DD/YYYY">
 
+    <div id="ip_mount"></div>
     <button type="submit">Generate Bond</button>
   </form>
 
   <div class="output" id="bondOutput"></div>
 
+  <script src="instrument-predicate.js"></script>
   <script>
+    document.getElementById('ip_mount').innerHTML = INSTRUMENT_FIELDSET();
     document.getElementById("bondForm").addEventListener("submit", function(e) {
       e.preventDefault();
+      if (!requireInstrument()) return;
       const bondNumber = document.getElementById("bondNumber").value;
       const claimant = document.getElementById("claimant").value;
       const obligee = document.getElementById("obligee").value;
@@ -69,7 +73,7 @@ ${claimant}
 Bonded Trustee / Private Surety
       `;
 
-      document.getElementById("bondOutput").textContent = bondText;
+      document.getElementById("bondOutput").textContent = bondText + instrumentClause();
     });
   </script>
 <script src="/js/tool-actions.js"></script>
